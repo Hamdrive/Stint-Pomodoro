@@ -27,6 +27,10 @@
     color: hsl(var(--primary-dark-color));
 }
 
+.flag__rotate {
+    transform: rotate(15deg);
+}
+
 @media screen and (max-width: 768px) {
     .nav__list{
         display: none;

@@ -6,8 +6,8 @@ export function Navbar() {
     <div className={`${styles.header} header pos-st top-left-pos py-md`}>
       <header className="max-width-1200 nav-main flex-row px-md mx-auto">
         <div className={`${styles.nav__logo} nav-logo`}>
-          <div className="fas fa-flag-checkered"></div>
-          Stint
+          <div className={`fas fa-flag-checkered fa-1x ${styles.flag__rotate}`}></div>
+          {" "}Stint
         </div>
 
         <button className="hamburger">
