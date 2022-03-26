@@ -8,7 +8,7 @@ export function Home() {
   return (
     <>
       <Navbar />
-      <div className='main py-md'>
+      <div className="main py-md">
         <main className="max-width-1200 grid grid-cols-2 gap-2 grid-ver-center min-vh-85 mx-auto px-lg">
           <div className="content ml-4">
             <h1 className="txt-xl txt-semibold my-1">
@@ -21,7 +21,9 @@ export function Home() {
               ensure you meet those <mark className="marker">deltas</mark>{" "}
               everytime!
             </p>
-            <Link to="/tasks" className="btn btn-def btn-lg">checkout tasks</Link>
+            <Link to="/tasks" className="btn btn-def btn-lg">
+              checkout tasks
+            </Link>
           </div>
           <div className="hero">
             <img className="mx-auto" src={Hero} alt="hero" />

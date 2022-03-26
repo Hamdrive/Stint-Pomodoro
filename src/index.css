@@ -4,21 +4,20 @@
   transform: translate(0);
 }
 
-.btn-def{
+.btn-def {
   background-color: hsl(var(--primary-color));
   color: var(--color-black);
   transition: 0.15s background-color;
 }
 
-.btn-def:hover{
-    background-color: hsl(var(--primary-light-color));
-
+.btn-def:hover {
+  background-color: hsl(var(--primary-light-color));
 }
 
-.btn-sec{
-    color: var(--complementary-color);
-    background-color: hsla(var(--complementary-color), 01);
-    transition: 0.15s background-color;
+.btn-sec {
+  color: var(--complementary-color);
+  background-color: hsla(var(--complementary-color), 01);
+  transition: 0.15s background-color;
 }
 
 .marker {
@@ -26,26 +25,22 @@
   padding: 0 var(--size-3);
 }
 
-.pointer{
+.pointer {
   cursor: pointer;
 }
 
 .main {
-    background-color: hsla(var(--primary-light-color), 0.2);
+  background-color: hsla(var(--primary-light-color), 0.2);
 }
 
-.min-h-100{
+.min-h-100 {
   min-height: 100vh;
 }
 
-.section {
-  background-color: hsl(var(--primary-light-color), 0.5);
-}
-
-.round-top-1{
+.round-top-1 {
   border-radius: var(--size-11) var(--size-11) 0 0;
 }
 
-.overflow-y{
+.overflow-y {
   overflow-y: scroll;
 }
