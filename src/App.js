@@ -1,8 +1,13 @@
+import { Route, Routes } from "react-router-dom";
+import { Home } from "./pages";
+
 function App() {
   return (
-    <div className="">
-      <h1>Hello world</h1>
-    </div>
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/tasks" />
+      <Route path="/timer" />
+    </Routes>
   );
 }
 
