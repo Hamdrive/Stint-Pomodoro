@@ -35,3 +35,15 @@
 .min-h-100{
   min-height: 100vh;
 }
+
+.section {
+  background-color: hsl(var(--primary-light-color), 0.5);
+}
+
+.round-top-1{
+  border-radius: var(--size-11) var(--size-11) 0 0;
+}
+
+.overflow-y{
+  overflow-y: scroll;
+}

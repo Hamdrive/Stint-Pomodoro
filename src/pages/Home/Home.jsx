@@ -11,7 +11,7 @@ export function Home() {
       <div className='main py-md'>
         <main className="max-width-1200 grid grid-cols-2 gap-2 grid-ver-center min-vh-85 mx-auto px-lg">
           <div className="content ml-4">
-            <h1 className="txt-xl my-1">
+            <h1 className="txt-xl txt-semibold my-1">
               Stay focused, <br /> track your deltas, <br /> accomplish tasks.
             </h1>
             <p className="h4 my-2">
