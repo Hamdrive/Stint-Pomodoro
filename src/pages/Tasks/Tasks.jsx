@@ -6,6 +6,8 @@ export function Tasks() {
 
     const [modal, setModal] = useState(false)
 
+    const [tasks, setTasks] = useState([])
+
     const toggleModal = () => {
         setModal(prev => !prev)
     }
@@ -15,7 +17,7 @@ export function Tasks() {
       <Navbar />
       <div className="main min-vh-85">
         <section className="max-width-1200 mx-auto px-md pos-rel">
-            {modal && <Modal toggleModal={toggleModal} />}
+            {modal && <Modal toggleModal={toggleModal} setTasks={setTasks} />}
           <div className="intro py-md">
             <h1 className="greeting txt-semibold">Welcome back, Hamza!</h1>
             <h2 className="message txt-regular">
@@ -30,8 +32,9 @@ export function Tasks() {
               </button>
             </div>
             <div className="task-list">
+                {tasks.map((task) => (
               <div className={`${styles.task} my-1 flex-between`}>
-                <p className="txt-md">Task item</p>
+                <p className="txt-md">{task.title}</p>
                 <div>
                   <div onClick={toggleModal}
                     className={`fas fa-edit fa-2x pointer ${styles.task__icon} `}
@@ -41,7 +44,9 @@ export function Tasks() {
                   ></div>
                 </div>
               </div>
-              <div className={`${styles.task} my-1 flex-between`}>
+
+                ))}
+              {/* <div className={`${styles.task} my-1 flex-between`}>
                 <p className="txt-md">Task item</p>
                 <div>
                   <div
@@ -62,7 +67,7 @@ export function Tasks() {
                     className={`fas fa-trash fa-2x ${styles.task__icon} `}
                   ></div>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
         </section>
