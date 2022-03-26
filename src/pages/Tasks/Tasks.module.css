@@ -1,4 +1,14 @@
 .task{
     background-color: var(--color-white);
     border-radius: var(--radius-extra-large);
+    padding: var(--size-9) var(--size-11);
+}
+
+.task__icon{
+    margin-right: var(--size-13);
+}
+
+.add__task:hover{
+    background-color: hsl(var(--complementary-light-color));
+    transition: 0.15s background-color;
 }

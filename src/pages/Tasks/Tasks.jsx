@@ -1,6 +1,6 @@
 import React from "react";
 import { Navbar } from "../../components";
-import styles from "./Tasks.module.css"
+import styles from "./Tasks.module.css";
 
 export function Tasks() {
   return (
@@ -17,23 +17,41 @@ export function Tasks() {
           <div className="title-newtask section round-top-1 px-md">
             <div className="flex-between py-md">
               <h2>Tasks To-Do</h2>
-              <button className="btn btn-sec btn-fab">+</button>
+              <button className={`btn btn-sec btn-fab ${styles.add__task}`}>+</button>
             </div>
             <div className="task-list min-h-100">
-              <div className={`${styles.task} my-1`}>
-                <p>Task item</p>
-                <div className="fas fa-edit"></div>
-                <div className="fas fa-trash"></div>
+              <div className={`${styles.task} my-1 flex-between`}>
+                <p className="txt-md">Task item</p>
+                <div>
+                  <div
+                    className={`fas fa-edit fa-2x ${styles.task__icon} `}
+                  ></div>
+                  <div
+                    className={`fas fa-trash fa-2x ${styles.task__icon} `}
+                  ></div>
+                </div>
               </div>
-              <div className={`${styles.task} my-1`}>
-                <p>Task item</p>
-                <div className="fas fa-edit"></div>
-                <div className="fas fa-trash"></div>
+              <div className={`${styles.task} my-1 flex-between`}>
+                <p className="txt-md">Task item</p>
+                <div>
+                  <div
+                    className={`fas fa-edit fa-2x ${styles.task__icon} `}
+                  ></div>
+                  <div
+                    className={`fas fa-trash fa-2x ${styles.task__icon} `}
+                  ></div>
+                </div>
               </div>
-              <div className={`${styles.task} my-1`}>
-                <p>Task item</p>
-                <div className="fas fa-edit"></div>
-                <div className="fas fa-trash"></div>
+              <div className={`${styles.task} my-1 flex-between`}>
+                <p className="txt-md">Task item</p>
+                <div>
+                  <div
+                    className={`fas fa-edit fa-2x ${styles.task__icon} `}
+                  ></div>
+                  <div
+                    className={`fas fa-trash fa-2x ${styles.task__icon} `}
+                  ></div>
+                </div>
               </div>
             </div>
           </div>
