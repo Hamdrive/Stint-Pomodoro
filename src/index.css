@@ -27,3 +27,11 @@
 .pointer{
   cursor: pointer;
 }
+
+.main {
+    background-color: hsla(var(--primary-light-color), 0.2);
+}
+
+.min-h-100{
+  min-height: 100vh;
+}

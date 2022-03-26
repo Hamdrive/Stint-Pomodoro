@@ -2,25 +2,26 @@ import React from "react";
 import { Navbar } from "../../components";
 import Hero from "../../assets/hero-image.png";
 import styles from "./Home.module.css";
+import { Link } from "react-router-dom";
 
 export function Home() {
   return (
     <>
       <Navbar />
-      <div className={`${styles.main} py-md`}>
-        <main className="max-width-1200 main grid grid-cols-2 gap-2 grid-ver-center min-vh-85 mx-auto px-lg">
+      <div className='main py-md'>
+        <main className="max-width-1200 grid grid-cols-2 gap-2 grid-ver-center min-vh-85 mx-auto px-lg">
           <div className="content ml-4">
             <h1 className="txt-xl my-1">
               Stay focused, <br /> track your deltas, <br /> accomplish tasks.
             </h1>
-            <p className="h4 my-1">
+            <p className="h4 my-2">
               <u className="txt-bold">Stint</u> is an easy-to-use{" "}
               <mark className="marker">task management</mark> and{" "}
               <mark className="marker">pomodoro timer</mark> that will help
               ensure you meet those <mark className="marker">deltas</mark>{" "}
               everytime!
             </p>
-            <button className="btn btn-def btn-lg">checkout Tasks</button>
+            <Link to="/tasks" className="btn btn-def btn-lg">checkout tasks</Link>
           </div>
           <div className="hero">
             <img className="mx-auto" src={Hero} alt="hero" />
