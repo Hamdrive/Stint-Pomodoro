@@ -1,5 +1,9 @@
 @import url("./variable.css");
 
+.header {
+  z-index: 10;
+}
+
 .btn:hover {
   transform: translate(0);
 }
