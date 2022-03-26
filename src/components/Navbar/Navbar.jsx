@@ -6,8 +6,10 @@ export function Navbar() {
     <div className={`${styles.header} header pos-st top-left-pos py-md`}>
       <header className="max-width-1200 nav-main flex-row px-md mx-auto">
         <div className={`${styles.nav__logo} nav-logo`}>
-          <div className={`fas fa-flag-checkered fa-1x ${styles.flag__rotate}`}></div>
-          {" "}Stint
+          <div
+            className={`fas fa-flag-checkered fa-1x ${styles.flag__rotate}`}
+          ></div>{" "}
+          Stint
         </div>
 
         <button className="hamburger">
@@ -19,15 +21,18 @@ export function Navbar() {
           </button>
           <ul className={`${styles.nav__menu} dis-flex align-center h-100`}>
             <li className={`${styles.nav__item} nav-item`}>
-              <button className="btn btn-md btn-sec px-md">
+              <a
+                href="https://github.com/Hamdrive/drivers-pomodoro"
+                className="btn btn-md btn-sec px-md"
+              >
                 <div className="fab fa-github px-sm"></div>Github
-              </button>
+              </a>
             </li>
             {true ? (
               <li className={`${styles.nav__item} nav-item`}>
                 <div className="badge">
                   <div
-                    className={`fas fa-moon ${styles.badge__icon} txt-md px-sm`}
+                    className={`fas fa-moon ${styles.badge__icon} pointer txt-md px-sm`}
                   ></div>
                 </div>
               </li>
@@ -35,7 +40,7 @@ export function Navbar() {
               <li className={`${styles.nav__item} nav-item`}>
                 <div className="badge">
                   <div
-                    className={`fas fa-sun ${styles.badge__icon} txt-md px-sm`}
+                    className={`fas fa-sun ${styles.badge__icon} pointer txt-md px-sm`}
                   ></div>
                 </div>
               </li>

@@ -23,3 +23,7 @@
   background-color: hsl(var(--complementary-light-color));
   padding: 0 var(--size-3);
 }
+
+.pointer{
+  cursor: pointer;
+}
