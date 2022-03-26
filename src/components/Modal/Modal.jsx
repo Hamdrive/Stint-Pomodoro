@@ -1,7 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./Modal.module.css";
+import { v4 as uuidv4 } from "uuid";
 
-export function Modal({ toggleModal }) {
+export function Modal({ toggleModal, setTasks }) {
+
+    const [info, setInfo] = useState([])
+
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        setTasks(prevTasks => [...prevTasks, {id: uuidv4(), ...info }] )
+        toggleModal()
+    }
   return (
     <div className={`pos-rel`}>
       <div onClick={toggleModal} className={`${styles.overlay}`}></div>
@@ -17,7 +26,11 @@ export function Modal({ toggleModal }) {
               className="input-corner input-md border-2"
               name="input"
               id="input"
+              value={info.title || ""}
               placeholder="Add Title"
+              onChange={(e) =>
+                setInfo((prevInfo) => ({ ...prevInfo, title: e.target.value }))
+              }
               required
             />
           </div>
@@ -29,7 +42,11 @@ export function Modal({ toggleModal }) {
               name="textarea"
               class="input-corner input-md border-2"
               id="textarea"
+              value={info.desc || ""}
               placeholder="Add Description"
+              onChange={(e) =>
+                setInfo((prevInfo) => ({ ...prevInfo, desc: e.target.value }))
+              }
             ></textarea>
           </div>
           <footer className={`${styles.modal__footer}`}>
@@ -37,20 +54,22 @@ export function Modal({ toggleModal }) {
               onClick={toggleModal}
               className={`btn btn-md mx-sm ${styles.outline}`}
             >
-              Action 1
+              Cancel
             </button>
             <button
-              onClick={toggleModal}
+              onClick={(e) => handleSubmit(e)}
+              id="add"
               className={`btn btn-md mx-sm ${styles.ghost}`}
             >
-              Action 2
+              Add
             </button>
           </footer>
+          <div
+            onClick={toggleModal}
+            id="cancel"
+            className={`fas fa-times ${styles.close} pointer`}
+          ></div>
         </form>
-        <div
-          onClick={toggleModal}
-          className={`fas fa-times ${styles.close} pointer`}
-        ></div>
       </section>
     </div>
   );
