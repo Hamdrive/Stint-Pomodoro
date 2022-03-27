@@ -60,3 +60,7 @@
 .form-input {
   margin: 0;
 }
+
+#input, #textarea {
+  font-family: var(--primary-font-family);
+}
