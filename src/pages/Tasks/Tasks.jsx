@@ -3,33 +3,48 @@ import { Modal, Navbar } from "../../components";
 import styles from "./Tasks.module.css";
 
 export function Tasks() {
-  const [modal, setModal] = useState(false);
-
+  const [modal, setModal] = useState({ id: "", display: false });
   const [tasks, setTasks] = useState([]);
 
+  const handleTaskDelete = (taskID) => {
+    setTasks((prevTasks) => prevTasks.filter((task) => task.id !== taskID));
+  };
+
+  const handleTaskEdit = (taskID) => {
+    setModal((prev) => ({ ...prev, id: taskID, display: !prev.display }));
+  };
+
   const toggleModal = () => {
-    setModal((prev) => !prev);
+    setModal((prev) => ({ ...prev, display: !prev.display }));
   };
 
   return (
-    <main className="">
+    <main>
       <Navbar />
       <div className="main container-height">
         <section className="max-width-1200 mx-auto px-md pos-rel">
-          {modal && <Modal toggleModal={toggleModal} setTasks={setTasks} />}
+          {modal.display && (
+            <Modal
+              toggleModal={toggleModal}
+              tasks={tasks}
+              setTasks={setTasks}
+              modal={modal}
+              setModal={setModal}
+            />
+          )}
           <div className="intro py-md">
             <h1 className="greeting txt-semibold">Welcome back, Hamza!</h1>
             {tasks.length === 0 ? (
-              <h2 className="message txt-regular">
-                No tasks! Great work!
-              </h2>
+              <h2 className="message txt-regular">No tasks! Great work!</h2>
             ) : (
               <h2 className="message txt-regular">
                 You have {tasks.length} task(s) today! Go get em!
               </h2>
             )}
           </div>
-          <div className={`title-newtask ${styles.section} round-top-1 px-md tasks-height`}>
+          <div
+            className={`title-newtask ${styles.section} round-top-1 px-md tasks-height`}
+          >
             <div className="flex-between py-md">
               <h2>Tasks To-Do</h2>
               <button
@@ -41,15 +56,18 @@ export function Tasks() {
             </div>
             <div className="task-list">
               {tasks.map((task) => (
-                <div key={task.id} className={`${styles.task} my-1 flex-between`}>
+                <div
+                  key={task.id}
+                  className={`${styles.task} my-1 flex-between`}
+                >
                   <p className="txt-md">{task.title}</p>
                   <div>
                     <div
-                      onClick={toggleModal}
+                      onClick={() => handleTaskEdit(task.id)}
                       className={`fas fa-edit fa-2x pointer ${styles.task__icon} `}
                     ></div>
                     <div
-                      onClick={toggleModal}
+                      onClick={() => handleTaskDelete(task.id)}
                       className={`fas fa-trash fa-2x  pointer ${styles.task__icon} `}
                     ></div>
                   </div>

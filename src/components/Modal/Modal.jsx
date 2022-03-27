@@ -2,14 +2,33 @@ import React, { useState } from "react";
 import styles from "./Modal.module.css";
 import { v4 as uuidv4 } from "uuid";
 
-export function Modal({ toggleModal, setTasks }) {
-  const [info, setInfo] = useState([]);
+const getInfo = (tasks, modal) => tasks.filter((task) => task.id === modal.id);
+
+export function Modal({ toggleModal, setTasks, tasks, modal, setModal }) {
+  const [info, setInfo] = useState(getInfo(tasks, modal)[0] || {});
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setTasks((prevTasks) => [...prevTasks, { id: uuidv4(), ...info }]);
+
+    setModal((prevModal) => ({ ...prevModal, id: "" }));
+
+    let isPresent = false;
+    let updatedTasks = tasks.map((item) => {
+      if (item.id === info.id) {
+        isPresent = true;
+        return { ...info };
+      }
+      return item;
+    });
+
+    if (!isPresent) {
+      updatedTasks = [...tasks, { ...info, id: uuidv4() }];
+    }
+
+    setTasks(updatedTasks);
     toggleModal();
   };
+
   return (
     <div className={`pos-rel`}>
       <div onClick={toggleModal} className={`${styles.overlay}`}></div>
@@ -92,7 +111,7 @@ export function Modal({ toggleModal, setTasks }) {
               id="add"
               className={`btn btn-md mx-sm ${styles.ghost}`}
             >
-              Add
+              {modal.id ? "Update" : "Add"}
             </button>
           </footer>
         </form>
