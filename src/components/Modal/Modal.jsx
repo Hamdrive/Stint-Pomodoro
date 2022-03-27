@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styles from "./Modal.module.css";
 import { v4 as uuidv4 } from "uuid";
 import { PrimaryBtn } from "../Primary Button/PrimaryBtn";
+import { SecondaryBtn } from "../Secondary Button/SecondaryBtn";
 
 const getInfo = (tasks, modal) => tasks.filter((task) => task.id === modal.id);
 
@@ -99,12 +100,9 @@ export function Modal({ toggleModal, setTasks, tasks, modal }) {
             </datalist>
           </div>
           <footer className={`${styles.modal__footer}`}>
-            <button
-              onClick={toggleModal}
-              className={`btn btn-md mx-sm ${styles.outline}`}
-            >
+            <SecondaryBtn callbackFn={toggleModal} id={"cancel"}>
               Cancel
-            </button>
+            </SecondaryBtn>
             <PrimaryBtn
               disabled={!info.title || !info.duration}
               callbackFn={(e) => handleSubmit(e)}
