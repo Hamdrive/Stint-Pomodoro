@@ -41,7 +41,7 @@ export function Tasks() {
             </div>
             <div className="task-list">
               {tasks.map((task) => (
-                <div className={`${styles.task} my-1 flex-between`}>
+                <div key={task.id} className={`${styles.task} my-1 flex-between`}>
                   <p className="txt-md">{task.title}</p>
                   <div>
                     <div
