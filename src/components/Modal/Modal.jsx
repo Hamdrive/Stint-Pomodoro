@@ -5,12 +5,18 @@ import { v4 as uuidv4 } from "uuid";
 const getInfo = (tasks, modal) => tasks.filter((task) => task.id === modal.id);
 
 export function Modal({ toggleModal, setTasks, tasks, modal, setModal }) {
-  const [info, setInfo] = useState(getInfo(tasks, modal)[0] || {});
+  const [info, setInfo] = useState(
+    getInfo(tasks, modal)[0] || { title: "", desc: "", duration: "60" }
+  );
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setInfo((prevInfo) => ({ ...prevInfo, [name]: value }));
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    setModal((prevModal) => ({ ...prevModal, id: "" }));
+    console.log(info);
 
     let isPresent = false;
     let updatedTasks = tasks.map((item) => {
@@ -42,13 +48,11 @@ export function Modal({ toggleModal, setTasks, tasks, modal, setModal }) {
             <input
               type="text"
               className="input-corner input-md border-2"
-              name="input"
+              name="title"
               id="input"
               value={info.title || ""}
               placeholder="Add Title"
-              onChange={(e) =>
-                setInfo((prevInfo) => ({ ...prevInfo, title: e.target.value }))
-              }
+              onChange={(e) => handleChange(e)}
               required
             />
           </div>
@@ -57,14 +61,12 @@ export function Modal({ toggleModal, setTasks, tasks, modal, setModal }) {
               Task Description
             </label>
             <textarea
-              name="textarea"
+              name="desc"
               className="input-corner input-md border-2"
               id="textarea"
               value={info.desc || ""}
               placeholder="Add Description"
-              onChange={(e) =>
-                setInfo((prevInfo) => ({ ...prevInfo, desc: e.target.value }))
-              }
+              onChange={(e) => handleChange(e)}
             ></textarea>
           </div>
           <div className="input-section">
@@ -77,15 +79,11 @@ export function Modal({ toggleModal, setTasks, tasks, modal, setModal }) {
               min="15"
               max="90"
               step="15"
-              defaultValue={info.duration || "60"}
+              name="duration"
+              value={info.duration}
               list="tickmarks"
               className="slider"
-              onChange={(e) =>
-                setInfo((prevInfo) => ({
-                  ...prevInfo,
-                  duration: e.target.value,
-                }))
-              }
+              onChange={(e) => handleChange(e)}
             />
             <datalist
               className="datalist flex-between txt-sm w-100"
@@ -109,6 +107,7 @@ export function Modal({ toggleModal, setTasks, tasks, modal, setModal }) {
             <button
               onClick={(e) => handleSubmit(e)}
               id="add"
+              disabled={!info.title || !info.duration}
               className={`btn btn-md mx-sm ${styles.ghost}`}
             >
               {modal.id ? "Update" : "Add"}
