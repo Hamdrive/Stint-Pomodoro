@@ -16,7 +16,6 @@ export function Modal({ toggleModal, setTasks, tasks, modal }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(info);
 
     let isPresent = false;
     let updatedTasks = tasks.map((item) => {
