@@ -32,5 +32,5 @@
 
 .section {
   background-color: hsl(var(--primary-light-color), 0.5);
-  min-height: 65vh;
+  min-height: calc(100vh - 80px - 192px);
 }

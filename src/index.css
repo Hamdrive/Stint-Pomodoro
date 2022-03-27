@@ -48,3 +48,11 @@
 .overflow-y {
   overflow-y: scroll;
 }
+
+.container-height{
+  min-height: calc(100vh - 80px);
+}
+
+.tasks-height {
+  min-height: calc(100vh - 80px - 192px);
+}
