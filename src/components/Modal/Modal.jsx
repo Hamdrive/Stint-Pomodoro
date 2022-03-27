@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from "uuid";
 
 const getInfo = (tasks, modal) => tasks.filter((task) => task.id === modal.id);
 
-export function Modal({ toggleModal, setTasks, tasks, modal, setModal }) {
+export function Modal({ toggleModal, setTasks, tasks, modal }) {
   const [info, setInfo] = useState(
     getInfo(tasks, modal)[0] || { title: "", desc: "", duration: "60" }
   );
