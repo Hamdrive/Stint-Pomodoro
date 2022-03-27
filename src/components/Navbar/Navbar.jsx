@@ -1,16 +1,19 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import styles from "./Navbar.module.css";
 
 export function Navbar() {
   return (
     <div className={`${styles.header} header pos-st top-left-pos py-md`}>
       <header className="max-width-1200 nav-main flex-row px-md mx-auto">
-        <div className={`${styles.nav__logo} nav-logo`}>
-          <div
-            className={`fas fa-flag-checkered fa-1x ${styles.flag__rotate}`}
-          ></div>{" "}
-          Stint
-        </div>
+        <Link to="/">
+          <div className={`${styles.nav__logo} nav-logo`}>
+            <div
+              className={`fas fa-flag-checkered fa-1x ${styles.flag__rotate}`}
+            ></div>{" "}
+            Stint
+          </div>
+        </Link>
 
         <button className="hamburger">
           <i className="fas fa-bars"></i>

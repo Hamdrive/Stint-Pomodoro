@@ -1,0 +1,36 @@
+.task {
+  background-color: var(--color-white);
+  border-radius: var(--radius-extra-large);
+  padding: var(--size-9) var(--size-11);
+}
+
+.task__icon {
+  margin-right: var(--size-13);
+}
+
+.task__icon:first-child {
+  color: hsl(var(--primary-color));
+  transition: 0.15s color;
+}
+
+.task__icon:last-child {
+  color: hsl(var(--red-800));
+  transition: 0.15s color;
+}
+
+.task__icon:first-child:hover {
+  color: hsl(var(--primary-light-color));
+}
+.task__icon:last-child:hover {
+  color: hsl(var(--red-800), 0.7);
+}
+
+.add__task:hover {
+  background-color: hsl(var(--complementary-light-color));
+  transition: 0.15s background-color;
+}
+
+.section {
+  background-color: hsl(var(--primary-light-color), 0.5);
+  min-height: calc(100vh - 80px - 192px);
+}

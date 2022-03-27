@@ -1,1 +1,2 @@
-export { Navbar } from "./Navbar/Navbar.jsx";
+export { Navbar } from "./Navbar/Navbar";
+export { Modal } from "./Modal/Modal";
