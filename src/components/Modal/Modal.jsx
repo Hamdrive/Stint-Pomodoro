@@ -3,22 +3,21 @@ import styles from "./Modal.module.css";
 import { v4 as uuidv4 } from "uuid";
 
 export function Modal({ toggleModal, setTasks }) {
+  const [info, setInfo] = useState([]);
 
-    const [info, setInfo] = useState([])
-
-    const handleSubmit = (e) => {
-        e.preventDefault()
-        setTasks(prevTasks => [...prevTasks, {id: uuidv4(), ...info }] )
-        toggleModal()
-    }
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setTasks((prevTasks) => [...prevTasks, { id: uuidv4(), ...info }]);
+    toggleModal();
+  };
   return (
     <div className={`pos-rel`}>
       <div onClick={toggleModal} className={`${styles.overlay}`}></div>
       <section className={`${styles.modal} ${styles.modal__container}`}>
         <h2>Task</h2>
-        <form class="form" novalidate>
-          <div class="input-section">
-            <label for="input" class="form-input input-required">
+        <form className="form" noValidate>
+          <div className="input-section">
+            <label htmlFor="input" className="form-input input-required">
               Task name
             </label>
             <input
@@ -35,12 +34,12 @@ export function Modal({ toggleModal, setTasks }) {
             />
           </div>
           <div className="input-section input-textarea">
-            <label for="textarea" className="form-input">
+            <label htmlFor="textarea" className="form-input">
               Task Description
             </label>
             <textarea
               name="textarea"
-              class="input-corner input-md border-2"
+              className="input-corner input-md border-2"
               id="textarea"
               value={info.desc || ""}
               placeholder="Add Description"
@@ -48,6 +47,38 @@ export function Modal({ toggleModal, setTasks }) {
                 setInfo((prevInfo) => ({ ...prevInfo, desc: e.target.value }))
               }
             ></textarea>
+          </div>
+          <div className="input-section">
+            <label htmlFor="input" className="form-input input-required">
+              Task duration
+            </label>
+
+            <input
+              type="range"
+              min="15"
+              max="90"
+              step="15"
+              defaultValue={info.duration || "60"}
+              list="tickmarks"
+              className="slider"
+              onChange={(e) =>
+                setInfo((prevInfo) => ({
+                  ...prevInfo,
+                  duration: e.target.value,
+                }))
+              }
+            />
+            <datalist
+              className="datalist flex-between txt-sm w-100"
+              id="tickmarks"
+            >
+              <option className="txt-semibold" value="15" label="15m"></option>
+              <option className="txt-semibold" value="30" label="30m"></option>
+              <option className="txt-semibold" value="45" label="45m"></option>
+              <option className="txt-semibold" value="60" label="60m"></option>
+              <option className="txt-semibold" value="75" label="75m"></option>
+              <option className="txt-semibold" value="90" label="90m"></option>
+            </datalist>
           </div>
           <footer className={`${styles.modal__footer}`}>
             <button
@@ -64,12 +95,12 @@ export function Modal({ toggleModal, setTasks }) {
               Add
             </button>
           </footer>
-          <div
-            onClick={toggleModal}
-            id="cancel"
-            className={`fas fa-times ${styles.close} pointer`}
-          ></div>
         </form>
+        <div
+          onClick={toggleModal}
+          id="cancel"
+          className={`fas fa-times ${styles.close} pointer`}
+        ></div>
       </section>
     </div>
   );

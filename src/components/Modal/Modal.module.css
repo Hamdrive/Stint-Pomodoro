@@ -13,9 +13,9 @@
 .modal {
   width: 100%;
   height: 100%;
-left: 50%;
-top: 50%;
-transform: translate(-50%, -50%);
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
   position: absolute;
   z-index: 20;
   /* margin: 0 auto; */
@@ -56,6 +56,17 @@ transform: translate(-50%, -50%);
 
 .close {
   position: absolute;
-  top: 5%;
-  right: 5%;
+  top: 3%;
+  right: 3%;
+  width: var(--size-15);
+  height: var(--size-15);
+  border-radius: var(--radius-rounded);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 0.15s all;
+}
+
+.close:hover{
+    background-color: hsl(var(--grey-500), 0.7);
 }
