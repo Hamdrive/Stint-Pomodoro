@@ -55,28 +55,6 @@ export function Tasks() {
                   </div>
                 </div>
               ))}
-              {/* <div className={`${styles.task} my-1 flex-between`}>
-                <p className="txt-md">Task item</p>
-                <div>
-                  <div
-                    className={`fas fa-edit fa-2x ${styles.task__icon} `}
-                  ></div>
-                  <div
-                    className={`fas fa-trash fa-2x ${styles.task__icon} `}
-                  ></div>
-                </div>
-              </div>
-              <div className={`${styles.task} my-1 flex-between`}>
-                <p className="txt-md">Task item</p>
-                <div>
-                  <div
-                    className={`fas fa-edit fa-2x ${styles.task__icon} `}
-                  ></div>
-                  <div
-                    className={`fas fa-trash fa-2x ${styles.task__icon} `}
-                  ></div>
-                </div>
-              </div> */}
             </div>
           </div>
         </section>
