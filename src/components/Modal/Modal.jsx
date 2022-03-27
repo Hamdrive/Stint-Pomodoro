@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styles from "./Modal.module.css";
 import { v4 as uuidv4 } from "uuid";
+import { PrimaryBtn } from "../Primary Button/PrimaryBtn";
 
 const getInfo = (tasks, modal) => tasks.filter((task) => task.id === modal.id);
 
@@ -104,14 +105,13 @@ export function Modal({ toggleModal, setTasks, tasks, modal }) {
             >
               Cancel
             </button>
-            <button
-              onClick={(e) => handleSubmit(e)}
-              id="add"
+            <PrimaryBtn
               disabled={!info.title || !info.duration}
-              className={`btn btn-md mx-sm ${styles.ghost}`}
+              callbackFn={(e) => handleSubmit(e)}
+              id={"add"}
             >
               {modal.id ? "Update" : "Add"}
-            </button>
+            </PrimaryBtn>
           </footer>
         </form>
         <div

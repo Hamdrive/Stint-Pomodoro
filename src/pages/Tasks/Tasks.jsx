@@ -68,7 +68,7 @@ export function Tasks() {
                     ></div>
                     <div
                       onClick={() => handleTaskDelete(task.id)}
-                      className={`fas fa-trash fa-2x  pointer ${styles.task__icon} `}
+                      className={`fas fa-trash fa-2x pointer ${styles.task__icon} `}
                     ></div>
                   </div>
                 </div>
