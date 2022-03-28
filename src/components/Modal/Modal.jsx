@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styles from "./Modal.module.css";
 import { v4 as uuidv4 } from "uuid";
-import { PrimaryBtn } from "../Primary Button/PrimaryBtn";
+import { PrimaryGhostBtn } from "../PrimaryGhostButton/PrimaryGhostBtn";
 import { SecondaryBtn } from "../Secondary Button/SecondaryBtn";
 
 const getInfo = (tasks, modal) => tasks.filter((task) => task.id === modal.id);
@@ -103,13 +103,13 @@ export function Modal({ toggleModal, setTasks, tasks, modal }) {
             <SecondaryBtn callbackFn={toggleModal} id={"cancel"}>
               Cancel
             </SecondaryBtn>
-            <PrimaryBtn
+            <PrimaryGhostBtn
               disabled={!info.title || !info.duration}
               callbackFn={(e) => handleSubmit(e)}
               id={"add"}
             >
               {modal.id ? "Update" : "Add"}
-            </PrimaryBtn>
+            </PrimaryGhostBtn>
           </footer>
         </form>
         <div

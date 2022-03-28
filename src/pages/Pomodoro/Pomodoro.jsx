@@ -1,5 +1,5 @@
 import React from 'react'
-import { Navbar } from '../../components'
+import { Navbar, PrimaryGhostBtn, SecondaryBtn } from '../../components'
 import styles from "./Pomodoro.module.css"
 
 export function Pomodoro() {
@@ -9,11 +9,31 @@ export function Pomodoro() {
       <div
         className={` ${styles.pomodoro__section} grid-container grid-2 gap-2 container-height round-top-1 max-width-1200 px-md mx-auto`}
       >
-        <section></section>
         <section>
           <div className={`${styles.pomodoro__task} round-top-1 px-md`}>
-            <div className='txt-lg txt-bold'>Lorem ipsum</div >
-            <div className='my-2 txt-md'>
+            <div className='grid-container grid-2'>
+              <PrimaryGhostBtn id={"start-btn"} btnStyles={"solid-primary"} >
+                <i class="fas fa-play"></i>
+                Start
+              </PrimaryGhostBtn>
+              <PrimaryGhostBtn id={"pause-btn"} btnStyles={"outline-primary"}>
+                <i class="fas fa-pause"></i>
+                Pause
+              </PrimaryGhostBtn>
+              <div className='span-2'>
+                  {/* <div style={{backgroundColor: "red", height: "100%", width: "100%"}}>aaaaaaaaaaaaaaaaaaaaaaaa</div> */}
+              <SecondaryBtn btnStyles={"span-2"}>
+                <i class="fas fa-redo"></i>
+                Restart
+              </SecondaryBtn>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section>
+          <div className={`${styles.pomodoro__task} round-top-1 px-md`}>
+            <div className="txt-lg txt-bold">Lorem ipsum</div>
+            <div className="my-2 txt-md">
               Lorem ipsum dolor sit amet consectetur, adipisicing elit. Adipisci
               unde quibusdam harum rem perferendis. Fugit ut voluptatibus
               veritatis quos sapiente corporis aspernatur deserunt veniam iste
