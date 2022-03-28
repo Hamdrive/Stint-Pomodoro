@@ -1,6 +1,6 @@
-import React from 'react'
-import { Navbar, PrimaryGhostBtn, SecondaryBtn } from '../../components'
-import styles from "./Pomodoro.module.css"
+import React from "react";
+import { Navbar, PrimaryGhostBtn, SecondaryBtn } from "../../components";
+import styles from "./Pomodoro.module.css";
 
 export function Pomodoro() {
   return (
@@ -11,8 +11,8 @@ export function Pomodoro() {
       >
         <section>
           <div className={`${styles.pomodoro__task} round-top-1 px-md`}>
-            <div className='grid-container grid-2'>
-              <PrimaryGhostBtn id={"start-btn"} btnStyles={"solid-primary"} >
+            <div className="grid-container grid-2 gap-1">
+              <PrimaryGhostBtn id={"start-btn"} btnStyles={"solid-primary"}>
                 <i class="fas fa-play"></i>
                 Start
               </PrimaryGhostBtn>
@@ -20,13 +20,10 @@ export function Pomodoro() {
                 <i class="fas fa-pause"></i>
                 Pause
               </PrimaryGhostBtn>
-              <div className='span-2'>
-                  {/* <div style={{backgroundColor: "red", height: "100%", width: "100%"}}>aaaaaaaaaaaaaaaaaaaaaaaa</div> */}
               <SecondaryBtn btnStyles={"span-2"}>
                 <i class="fas fa-redo"></i>
                 Restart
               </SecondaryBtn>
-              </div>
             </div>
           </div>
         </section>
