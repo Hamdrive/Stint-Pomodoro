@@ -64,3 +64,16 @@
 #input, #textarea {
   font-family: var(--primary-font-family);
 }
+
+.outline-primary {
+  outline: var(--size-2) solid hsl(var(--primary-color));
+  background-color: hsl(var(--primary-light-color), 0.5);
+}
+
+.solid-primary {
+    background-color: hsl(var(--primary-color), 0.7);
+}
+
+.span-2 {
+  grid-column: span 2;
+}
