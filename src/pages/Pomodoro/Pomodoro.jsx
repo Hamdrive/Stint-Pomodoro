@@ -1,10 +1,13 @@
 import React from "react";
+import { CircularProgressbar } from "react-circular-progressbar";
 import { Navbar, PrimaryGhostBtn, SecondaryBtn } from "../../components";
-import styles from "./Pomodoro.module.css";
-import { CountdownCircleTimer } from "react-countdown-circle-timer";
+import styles from "./Pomodoro.module.css"
+import "react-circular-progressbar/dist/styles.css";
+
 
 
 export function Pomodoro() {
+  const value = 0.1
   return (
     <>
       <Navbar />
@@ -13,16 +16,13 @@ export function Pomodoro() {
       >
         <section>
           <div className={`${styles.pomodoro__task} round-top-1 px-md `}>
-            <div className="py-md">
-              <CountdownCircleTimer
-                isPlaying
-                duration={0}
-                colors={["#004777", "#F7B801", "#A30000", "#A30000"]}
-                colorsTime={[10, 6, 3, 0]}
-                size={360}
-              >
-                {10 }
-              </CountdownCircleTimer>
+            <div className="py-md mx-auto w-70 h-70">
+              <CircularProgressbar
+                counterClockwise={true}
+                value={value}
+                maxValue={1}
+                text={`${value * 100}%`}
+              />
             </div>
             <div className="grid-container grid-2 gap-1">
               <PrimaryGhostBtn id={"start-btn"} btnStyles={"solid-primary"}>
