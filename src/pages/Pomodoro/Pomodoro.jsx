@@ -1,6 +1,8 @@
 import React from "react";
 import { Navbar, PrimaryGhostBtn, SecondaryBtn } from "../../components";
 import styles from "./Pomodoro.module.css";
+import { CountdownCircleTimer } from "react-countdown-circle-timer";
+
 
 export function Pomodoro() {
   return (
@@ -10,7 +12,18 @@ export function Pomodoro() {
         className={` ${styles.pomodoro__section} grid-container grid-2 gap-2 container-height round-top-1 max-width-1200 px-md mx-auto`}
       >
         <section>
-          <div className={`${styles.pomodoro__task} round-top-1 px-md`}>
+          <div className={`${styles.pomodoro__task} round-top-1 px-md `}>
+            <div className="py-md">
+              <CountdownCircleTimer
+                isPlaying
+                duration={0}
+                colors={["#004777", "#F7B801", "#A30000", "#A30000"]}
+                colorsTime={[10, 6, 3, 0]}
+                size={360}
+              >
+                {10 }
+              </CountdownCircleTimer>
+            </div>
             <div className="grid-container grid-2 gap-1">
               <PrimaryGhostBtn id={"start-btn"} btnStyles={"solid-primary"}>
                 <i class="fas fa-play"></i>
