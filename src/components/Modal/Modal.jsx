@@ -8,7 +8,12 @@ const getInfo = (tasks, modal) => tasks.filter((task) => task.id === modal.id);
 
 export function Modal({ toggleModal, setTasks, tasks, modal }) {
   const [info, setInfo] = useState(
-    getInfo(tasks, modal)[0] || { title: "", desc: "", duration: "60" }
+    getInfo(tasks, modal)[0] || {
+      title: "",
+      desc: "",
+      focusDuration: "60",
+      breakDuration: "30",
+    }
   );
 
   const handleChange = (e) => {
@@ -73,7 +78,7 @@ export function Modal({ toggleModal, setTasks, tasks, modal }) {
           </div>
           <div className="input-section">
             <label htmlFor="input" className="form-input input-required">
-              Task duration
+              Focus duration
             </label>
 
             <input
@@ -81,8 +86,8 @@ export function Modal({ toggleModal, setTasks, tasks, modal }) {
               min="15"
               max="90"
               step="15"
-              name="duration"
-              value={info.duration}
+              name="focusDuration"
+              value={info.focusDuration}
               list="tickmarks"
               className="slider"
               onChange={(e) => handleChange(e)}
@@ -99,12 +104,38 @@ export function Modal({ toggleModal, setTasks, tasks, modal }) {
               <option className="txt-semibold" value="90" label="90m"></option>
             </datalist>
           </div>
+          <div className="input-section">
+            <label htmlFor="input" className="form-input input-required">
+              Break duration
+            </label>
+
+            <input
+              type="range"
+              min="15"
+              max="60"
+              step="15"
+              name="breakDuration"
+              value={info.breakDuration}
+              list="tickmarks"
+              className="slider"
+              onChange={(e) => handleChange(e)}
+            />
+            <datalist
+              className="datalist flex-between txt-sm w-100"
+              id="tickmarks"
+            >
+              <option className="txt-semibold" value="15" label="15m"></option>
+              <option className="txt-semibold" value="30" label="30m"></option>
+              <option className="txt-semibold" value="45" label="45m"></option>
+              <option className="txt-semibold" value="60" label="60m"></option>
+            </datalist>
+          </div>
           <footer className={`${styles.modal__footer}`}>
             <SecondaryBtn callbackFn={toggleModal} id={"cancel"}>
               Cancel
             </SecondaryBtn>
             <PrimaryGhostBtn
-              disabled={!info.title || !info.duration}
+              disabled={!info.title || !info.focusDuration || !info.breakDuration}
               callbackFn={(e) => handleSubmit(e)}
               id={"add"}
             >

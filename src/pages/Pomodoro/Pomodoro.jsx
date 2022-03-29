@@ -3,10 +3,19 @@ import { CircularProgressbar } from "react-circular-progressbar";
 import { Navbar, PrimaryGhostBtn, SecondaryBtn } from "../../components";
 import styles from "./Pomodoro.module.css"
 import "react-circular-progressbar/dist/styles.css";
+import { useLocation } from "react-router-dom";
 
 
 
 export function Pomodoro() {
+
+  const location = useLocation()
+  const {pomodoroTask} = location.state
+  const {title, desc, focusDuration, breakDuration} = pomodoroTask
+
+
+
+
   const value = 0.1
   return (
     <>
