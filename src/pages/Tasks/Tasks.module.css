@@ -12,9 +12,12 @@
 .task__title {
   padding: var(--size-9) var(--size-11);
   margin-left: auto;
+  word-break: break-all;
 }
 
 .task__controls {
+  display: flex;
+  align-items: center;
   padding: var(--size-9) var(--size-11);
 }
 
