@@ -7,7 +7,7 @@ import { SecondaryBtn } from "../Secondary Button/SecondaryBtn";
 const getInfo = (tasks, modal) => tasks.filter((task) => task.id === modal.id);
 
 export function Modal({ toggleModal, setTasks, tasks, modal }) {
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState({ titleCount: 0, descCount: 0 });
   const [info, setInfo] = useState(
     getInfo(tasks, modal)[0] || {
       title: "",
@@ -20,7 +20,7 @@ export function Modal({ toggleModal, setTasks, tasks, modal }) {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setInfo((prevInfo) => ({ ...prevInfo, [name]: value }));
-    if (name === "desc") setCount(value.length);
+    setCount((prev) => ({ ...prev, [`${name}Count`]: value.length }));
   };
 
   const handleSubmit = (e) => {
@@ -64,6 +64,16 @@ export function Modal({ toggleModal, setTasks, tasks, modal }) {
               onChange={(e) => handleChange(e)}
               required
             />
+            {count.titleCount >= 50 ? (
+              <p className="count-success txt-reg">
+                <i className="fas fa-check-circle fa-sm"></i> Done
+              </p>
+            ) : (
+              <p className="count-fail txt-reg">
+                <i className="fas fa-times-circle fa-sm"></i> ({count.titleCount}
+                /50)
+              </p>
+            )}
           </div>
           <div className="input-section input-textarea">
             <label htmlFor="textarea" className="form-input">
@@ -78,13 +88,14 @@ export function Modal({ toggleModal, setTasks, tasks, modal }) {
               placeholder="Add Description"
               onChange={(e) => handleChange(e)}
             ></textarea>
-            {count >= 100 ? (
+            {count.descCount >= 100 ? (
               <p className="count-success txt-reg">
                 <i className="fas fa-check-circle fa-sm"></i> Done
               </p>
             ) : (
               <p className="count-fail txt-reg">
-                <i className="fas fa-times-circle fa-sm"></i> ({count}/100)
+                <i className="fas fa-times-circle fa-sm"></i> ({count.descCount}
+                /100)
               </p>
             )}
           </div>
@@ -151,7 +162,7 @@ export function Modal({ toggleModal, setTasks, tasks, modal }) {
                 !info.title ||
                 !info.focusDuration ||
                 !info.breakDuration ||
-                count < 100
+                (count.titleCount < 50 || count.descCount < 100)
               }
               onClick={(e) => handleSubmit(e)}
               id={"add"}
