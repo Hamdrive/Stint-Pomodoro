@@ -90,15 +90,15 @@ export function Pomodoro() {
             </div>
             <div className="grid-container grid-2 gap-1">
               <PrimaryGhostBtn id={"start-btn"} btnStyles={"solid-primary"}>
-                <i class="fas fa-play"></i>
+                <i className="fas fa-play"></i>
                 Start
               </PrimaryGhostBtn>
               <PrimaryGhostBtn id={"pause-btn"} btnStyles={"outline-primary"}>
-                <i class="fas fa-pause"></i>
+                <i className="fas fa-pause"></i>
                 Pause
               </PrimaryGhostBtn>
               <SecondaryBtn btnStyles={"span-2"}>
-                <i class="fas fa-redo"></i>
+                <i className="fas fa-redo"></i>
                 Restart
               </SecondaryBtn>
             </div>
