@@ -61,8 +61,12 @@ export function Tasks() {
                   key={task.id}
                   className={`${styles.task} my-1 flex-between`}
                 >
-                  <Link to="/pomodoro" className="dis-flex" >
-                  <p className="txt-md flex-grow-1">{task.title}</p>
+                  <Link
+                    to="/pomodoro"
+                    state={{ pomodoroTask: task }}
+                    className="dis-flex"
+                  >
+                    <p className="txt-md flex-grow-1">{task.title}</p>
                   </Link>
                   <div className="px-sm">
                     <div
