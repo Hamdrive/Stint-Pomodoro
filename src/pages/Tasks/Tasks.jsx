@@ -63,18 +63,17 @@ export function Tasks() {
             </div>
             <div className="task-list">
               {tasks.map((task) => (
-                <div
-                  key={task.id}
-                  className={`${styles.task} my-1 flex-between`}
-                >
+                <div key={task.id} className={`${styles.task} my-1 dis-flex`}>
                   <Link
                     to="/pomodoro"
                     state={{ pomodoroTask: task }}
-                    className="dis-flex"
+                    className="flex-grow-1"
                   >
-                    <p className="txt-md flex-grow-1">{task.title}</p>
+                    <p className={` ${styles.task__title} w-100 txt-md `}>
+                      {task.title}
+                    </p>
                   </Link>
-                  <div className="px-sm">
+                  <div className={`${styles.task__controls}`}>
                     <div
                       onClick={() => handleTaskEdit(task.id)}
                       className={`fas fa-edit fa-2x pointer ${styles.task__icon} `}
