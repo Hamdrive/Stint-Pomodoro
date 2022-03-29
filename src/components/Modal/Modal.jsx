@@ -131,12 +131,12 @@ export function Modal({ toggleModal, setTasks, tasks, modal }) {
             </datalist>
           </div>
           <footer className={`${styles.modal__footer}`}>
-            <SecondaryBtn callbackFn={toggleModal} id={"cancel"}>
+            <SecondaryBtn onClick={toggleModal} id={"cancel"}>
               Cancel
             </SecondaryBtn>
             <PrimaryGhostBtn
               disabled={!info.title || !info.focusDuration || !info.breakDuration}
-              callbackFn={(e) => handleSubmit(e)}
+              onClick={(e) => handleSubmit(e)}
               id={"add"}
             >
               {modal.id ? "Update" : "Add"}

@@ -4,13 +4,13 @@ import styles from "./PrimaryGhostBtn.module.css";
 export function PrimaryGhostBtn({
   disabled = false,
   id,
-  callbackFn,
+  onClick,
   children,
   btnStyles = "",
 }) {
   return (
     <button
-      onClick={callbackFn}
+      onClick={onClick}
       id={id}
       disabled={disabled}
       className={`btn btn-md mx-sm ${styles.ghost} ${btnStyles}`}

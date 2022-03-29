@@ -16,8 +16,8 @@ export function Pomodoro() {
   const [focusMinutes, setfocusMinutes] = useState(Number(focusDuration));
   const [breakMinutes, setbreakMinutes] = useState(Number(breakDuration));
 
-    // const [focusMinutes, setfocusMinutes] = useState(0.5);
-    // const [breakMinutes, setbreakMinutes] = useState(0.5);
+  // const [focusMinutes, setfocusMinutes] = useState(0.5);
+  // const [breakMinutes, setbreakMinutes] = useState(0.5);
 
   const percentageRef = useRef(100);
   const secondsRef = useRef(seconds);
@@ -42,6 +42,7 @@ export function Pomodoro() {
 
   useEffect(() => {
     setSeconds(focusMinutes * 60);
+    secondsRef.current = focusMinutes * 60;
 
     const interval = setInterval(() => {
       console.log("run", secondsRef.current);
@@ -73,66 +74,71 @@ export function Pomodoro() {
   return (
     <>
       <Navbar />
-      <div
-        className={` ${styles.pomodoro__section} grid-container grid-2 gap-2 container-height round-top-1 max-width-1200 px-md mx-auto`}
-      >
-        <section>
-          <div className={`${styles.pomodoro__task} round-top-1 px-md `}>
-            <div className="py-md mx-auto w-70 h-70">
-              <CircularProgressbar
-                counterClockwise={true}
-                value={percentageRef.current}
-                text={`${minutesLeft} : ${secondsLeft}`}
-                styles={buildStyles({
-                  trailColor: "#fff",
-                  pathColor:
-                    pomodoroMode.current === "focus"
-                      ? `hsl(16, 79%, 66%)`
-                      : `hsl(196, 79%, 66%)`,
-                  textColor:
-                    pomodoroMode.current === "focus"
-                      ? `hsl(16, 79%, 66%)`
-                      : `hsl(196, 79%, 66%)`,
-                })}
-              />
+      <section className="main">
+        <div
+          className={` ${styles.pomodoro__section} grid-container grid-2 gap-2 container-height round-top-1 max-width-1200 px-md mx-auto`}
+        >
+          <section>
+            <div
+              className={`${styles.pomodoro__task} round-top-1 px-md `}
+            >
+              <div className={` ${styles.pomodoro__timer}  mx-auto w-70 h-70`}>
+                <CircularProgressbar
+                  counterClockwise={true}
+                  value={percentageRef.current}
+                  text={`${minutesLeft} : ${secondsLeft}`}
+                  styles={buildStyles({
+                    trailColor: "#fff",
+                    pathColor:
+                      pomodoroMode.current === "focus"
+                        ? `hsl(16, 79%, 66%)`
+                        : `hsl(196, 79%, 66%)`,
+                    textColor:
+                      pomodoroMode.current === "focus"
+                        ? `hsl(16, 79%, 66%)`
+                        : `hsl(196, 79%, 66%)`,
+                  })}
+                />
+              </div>
+              <div className="grid-container grid-2 gap-1">
+                <PrimaryGhostBtn
+                  onClick={() => (pausedRef.current = false)}
+                  id={"start-btn"}
+                  btnStyles={"solid-primary"}
+                >
+                  <i className="fas fa-play"></i>
+                  Start
+                </PrimaryGhostBtn>
+                <PrimaryGhostBtn
+                  onClick={() => (pausedRef.current = true)}
+                  id={"pause-btn"}
+                  btnStyles={"outline-primary"}
+                >
+                  <i className="fas fa-pause"></i>
+                  Pause
+                </PrimaryGhostBtn>
+                <SecondaryBtn
+                  onClick={() => {
+                    pausedRef.current = true;
+                    secondsRef.current = focusMinutes * 60;
+                    setSeconds(focusMinutes * 60);
+                  }}
+                  btnStyles={"span-2"}
+                >
+                  <i className="fas fa-redo"></i>
+                  Restart
+                </SecondaryBtn>
+              </div>
             </div>
-            <div className="grid-container grid-2 gap-1">
-              <PrimaryGhostBtn
-                callbackFn={() => (pausedRef.current = false)}
-                id={"start-btn"}
-                btnStyles={"solid-primary"}
-              >
-                <i className="fas fa-play"></i>
-                Start
-              </PrimaryGhostBtn>
-              <PrimaryGhostBtn
-                callbackFn={() => (pausedRef.current = true)}
-                id={"pause-btn"}
-                btnStyles={"outline-primary"}
-              >
-                <i className="fas fa-pause"></i>
-                Pause
-              </PrimaryGhostBtn>
-              <SecondaryBtn
-                callbackFn={() => {
-                  pausedRef.current = true;
-                  setSeconds(focusMinutes * 60);
-                }}
-                btnStyles={"span-2"}
-              >
-                <i className="fas fa-redo"></i>
-                Restart
-              </SecondaryBtn>
+          </section>
+          <section>
+            <div className={`${styles.pomodoro__task} round-top-1 px-md`}>
+              <div className="txt-lg txt-bold">{title}</div>
+              <div className="my-2 txt-md">{desc}</div>
             </div>
-          </div>
-        </section>
-        <section>
-          <div className={`${styles.pomodoro__task} round-top-1 px-md`}>
-            <div className="txt-lg txt-bold">{title}</div>
-            <div className="my-2 txt-md">{desc}</div>
-          </div>
-        </section>
-      </div>
+          </section>
+        </div>
+      </section>
     </>
   );
 }
