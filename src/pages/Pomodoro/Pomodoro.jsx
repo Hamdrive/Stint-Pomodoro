@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { CircularProgressbar } from "react-circular-progressbar";
 import { Navbar, PrimaryGhostBtn, SecondaryBtn } from "../../components";
 import styles from "./Pomodoro.module.css"
@@ -12,6 +12,61 @@ export function Pomodoro() {
   const location = useLocation()
   const {pomodoroTask} = location.state
   const {title, desc, focusDuration, breakDuration} = pomodoroTask
+
+  const [isPaused, setPaused] = useState(false)
+  const [pomodoroMode, setpomodoroMode] = useState("focus")
+  const [seconds, setSeconds] = useState(0)
+  const [focusMinutes, setfocusMinutes] = useState(Number(focusDuration))
+  const [breakMinutes, setbreakMinutes] = useState(Number(breakDuration))
+
+  const percentageRef = useRef(100)
+  const secondsRef = useRef(seconds)
+  const pausedRef = useRef(isPaused)
+  const pomodoroModeRef = useRef(pomodoroMode)
+
+  const handleSecondsUpdate = () => {
+    secondsRef.current--;
+    setSeconds(secondsRef.current)
+  }
+
+  const switchPomodoroMode = () => {
+    const newMode = pomodoroModeRef.current === "focus" ? "break" : "focus"
+    const newSeconds = (newMode === "focus"? focusMinutes : breakMinutes) * 60
+
+    setpomodoroMode(newMode)
+    pomodoroModeRef.current = newMode
+
+    setSeconds(newSeconds)
+    secondsRef.current = newSeconds
+  }
+
+  useEffect(() => {
+    setSeconds(focusMinutes * 60)
+
+
+    const interval = setInterval(() => {
+      if(pausedRef) return ;
+      if(secondsRef === 0) return switchPomodoroMode()
+
+      handleSecondsUpdate()
+    }, 1000)
+
+    return () => clearInterval(interval)
+    
+
+  }, [])
+
+  useEffect(() => {
+  }, [])
+
+  const totalSeconds = (pomodoroMode === "focus" ? focusMinutes : breakMinutes) * 60
+  console.log(totalSeconds)
+  percentageRef.current = Math.round(seconds/totalSeconds * 100)
+  console.log(percentageRef)
+
+  const minutesLeft = Math.floor(seconds/60)
+  let secondsLeft = seconds % 60
+  if (secondsLeft < 10) secondsLeft = `0${secondsLeft}`
 
 
 
@@ -28,9 +83,9 @@ export function Pomodoro() {
             <div className="py-md mx-auto w-70 h-70">
               <CircularProgressbar
                 counterClockwise={true}
-                value={value}
+                value={percentageRef.current}
                 maxValue={1}
-                text={`${value * 100}%`}
+                text={`${minutesLeft} : ${secondsLeft}`}
               />
             </div>
             <div className="grid-container grid-2 gap-1">
@@ -51,14 +106,9 @@ export function Pomodoro() {
         </section>
         <section>
           <div className={`${styles.pomodoro__task} round-top-1 px-md`}>
-            <div className="txt-lg txt-bold">Lorem ipsum</div>
+            <div className="txt-lg txt-bold">{title}</div>
             <div className="my-2 txt-md">
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Adipisci
-              unde quibusdam harum rem perferendis. Fugit ut voluptatibus
-              veritatis quos sapiente corporis aspernatur deserunt veniam iste
-              pariatur sequi numquam, ex ad vitae eaque debitis dicta omnis
-              nulla molestias reprehenderit! Voluptates ratione tempore minus
-              inventore pariatur earum assumenda sint eligendi quod dicta?
+              {desc}
             </div>
           </div>
         </section>
