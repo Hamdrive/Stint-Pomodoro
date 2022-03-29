@@ -10,7 +10,7 @@ export function SecondaryBtn({
 }) {
   return (
     <button
-      onClick={callbackFn}
+      onClick={() => callbackFn}
       id={id}
       disabled={disabled}
       className={`btn btn-md mx-sm ${styles.outline} ${btnStyles}`}
