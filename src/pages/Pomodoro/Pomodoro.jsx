@@ -10,11 +10,14 @@ export function Pomodoro() {
   const { pomodoroTask } = location.state;
   const { title, desc, focusDuration, breakDuration } = pomodoroTask;
 
-  const [isPaused, setPaused] = useState(false);
+  const [isPaused, setPaused] = useState(true);
   const [pomodoroMode, setpomodoroMode] = useState("focus");
   const [seconds, setSeconds] = useState(0);
   const [focusMinutes, setfocusMinutes] = useState(Number(focusDuration));
   const [breakMinutes, setbreakMinutes] = useState(Number(breakDuration));
+
+    // const [focusMinutes, setfocusMinutes] = useState(0.5);
+    // const [breakMinutes, setbreakMinutes] = useState(0.5);
 
   const percentageRef = useRef(100);
   const secondsRef = useRef(seconds);
@@ -41,16 +44,20 @@ export function Pomodoro() {
     setSeconds(focusMinutes * 60);
 
     const interval = setInterval(() => {
-      if (pausedRef) return;
-      if (secondsRef === 0) return switchPomodoroMode();
+      console.log("run", secondsRef.current);
+      if (pausedRef.current) {
+        console.log("pause");
+        return;
+      }
+      if (secondsRef.current === 0) return switchPomodoroMode();
 
       handleSecondsUpdate();
     }, 1000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [focusMinutes]);
 
-  useEffect(() => {}, []);
+  // useEffect(() => {}, []);
 
   const totalSeconds =
     (pomodoroMode === "focus" ? focusMinutes : breakMinutes) * 60;
@@ -58,8 +65,9 @@ export function Pomodoro() {
   percentageRef.current = Math.round((seconds / totalSeconds) * 100);
   console.log(percentageRef);
 
-  const minutesLeft = Math.floor(seconds / 60);
+  let minutesLeft = Math.floor(seconds / 60);
   let secondsLeft = seconds % 60;
+  if (minutesLeft < 10) minutesLeft = `0${minutesLeft}`;
   if (secondsLeft < 10) secondsLeft = `0${secondsLeft}`;
 
   return (
@@ -73,32 +81,45 @@ export function Pomodoro() {
             <div className="py-md mx-auto w-70 h-70">
               <CircularProgressbar
                 counterClockwise={true}
-                value={0.75}
-                maxValue={1}
+                value={percentageRef.current}
                 text={`${minutesLeft} : ${secondsLeft}`}
                 styles={buildStyles({
                   trailColor: "#fff",
                   pathColor:
-                    pomodoroMode !== "focus"
-                      ? `hsl(196, 79%, 66%)`
-                      : `hsl(16, 79%, 66%)`,
+                    pomodoroMode.current === "focus"
+                      ? `hsl(16, 79%, 66%)`
+                      : `hsl(196, 79%, 66%)`,
                   textColor:
-                    pomodoroMode !== "focus"
-                      ? `hsl(196, 79%, 66%)`
-                      : `hsl(16, 79%, 66%)`,
+                    pomodoroMode.current === "focus"
+                      ? `hsl(16, 79%, 66%)`
+                      : `hsl(196, 79%, 66%)`,
                 })}
               />
             </div>
             <div className="grid-container grid-2 gap-1">
-              <PrimaryGhostBtn id={"start-btn"} btnStyles={"solid-primary"}>
+              <PrimaryGhostBtn
+                callbackFn={() => (pausedRef.current = false)}
+                id={"start-btn"}
+                btnStyles={"solid-primary"}
+              >
                 <i className="fas fa-play"></i>
                 Start
               </PrimaryGhostBtn>
-              <PrimaryGhostBtn callbackFn={console.log("click")}  id={"pause-btn"} btnStyles={"outline-primary"}>
+              <PrimaryGhostBtn
+                callbackFn={() => (pausedRef.current = true)}
+                id={"pause-btn"}
+                btnStyles={"outline-primary"}
+              >
                 <i className="fas fa-pause"></i>
                 Pause
               </PrimaryGhostBtn>
-              <SecondaryBtn btnStyles={"span-2"}>
+              <SecondaryBtn
+                callbackFn={() => {
+                  pausedRef.current = true;
+                  setSeconds(focusMinutes * 60);
+                }}
+                btnStyles={"span-2"}
+              >
                 <i className="fas fa-redo"></i>
                 Restart
               </SecondaryBtn>
