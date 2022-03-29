@@ -1,11 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Modal, Navbar } from "../../components";
 import styles from "./Tasks.module.css";
 
 export function Tasks() {
   const [modal, setModal] = useState({ id: "", display: false });
-  const [tasks, setTasks] = useState([]);
+  const [tasks, setTasks] = useState(
+    JSON.parse(localStorage.getItem("userTasks")) || []
+  );
 
   const handleTaskDelete = (taskID) => {
     setTasks((prevTasks) => prevTasks.filter((task) => task.id !== taskID));
@@ -18,6 +20,10 @@ export function Tasks() {
   const toggleModal = () => {
     setModal((prev) => ({ ...prev, display: !prev.display }));
   };
+
+  useEffect(() => {
+    localStorage.setItem("userTasks", JSON.stringify(tasks));
+  }, [tasks]);
 
   return (
     <main>
