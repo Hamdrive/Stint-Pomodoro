@@ -13,16 +13,25 @@ export function Pomodoro() {
   const [isPaused, setPaused] = useState(true);
   const [pomodoroMode, setpomodoroMode] = useState("focus");
   const [seconds, setSeconds] = useState(0);
-  const [focusMinutes, setfocusMinutes] = useState(Number(focusDuration));
-  const [breakMinutes, setbreakMinutes] = useState(Number(breakDuration));
-
-  // const [focusMinutes, setfocusMinutes] = useState(0.5);
-  // const [breakMinutes, setbreakMinutes] = useState(0.5);
 
   const percentageRef = useRef(100);
   const secondsRef = useRef(seconds);
   const pausedRef = useRef(isPaused);
   const pomodoroModeRef = useRef(pomodoroMode);
+
+  const focusMinutes = Number(focusDuration);
+  const breakMinutes = Number(breakDuration);
+
+  const totalSeconds =
+    (pomodoroMode === "focus" ? focusMinutes : breakMinutes) * 60;
+  console.log(totalSeconds);
+  percentageRef.current = (seconds / totalSeconds) * 100;
+  console.log(percentageRef);
+
+  let minutesLeft = Math.floor(seconds / 60);
+  let secondsLeft = seconds % 60;
+  if (minutesLeft < 10) minutesLeft = `0${minutesLeft}`;
+  if (secondsLeft < 10) secondsLeft = `0${secondsLeft}`;
 
   const handleSecondsUpdate = () => {
     secondsRef.current--;
@@ -56,20 +65,7 @@ export function Pomodoro() {
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [focusMinutes]);
-
-  // useEffect(() => {}, []);
-
-  const totalSeconds =
-    (pomodoroMode === "focus" ? focusMinutes : breakMinutes) * 60;
-  console.log(totalSeconds);
-  percentageRef.current = Math.round((seconds / totalSeconds) * 100);
-  console.log(percentageRef);
-
-  let minutesLeft = Math.floor(seconds / 60);
-  let secondsLeft = seconds % 60;
-  if (minutesLeft < 10) minutesLeft = `0${minutesLeft}`;
-  if (secondsLeft < 10) secondsLeft = `0${secondsLeft}`;
+  }, []);
 
   return (
     <>
@@ -79,15 +75,14 @@ export function Pomodoro() {
           className={` ${styles.pomodoro__section} grid-container grid-2 gap-2 container-height round-top-1 max-width-1200 px-md mx-auto`}
         >
           <section>
-            <div
-              className={`${styles.pomodoro__task} round-top-1 px-md `}
-            >
+            <div className={`${styles.pomodoro__task} round-top-1 px-md `}>
               <div className={` ${styles.pomodoro__timer}  mx-auto w-70 h-70`}>
                 <CircularProgressbar
                   counterClockwise={true}
                   value={percentageRef.current}
                   text={`${minutesLeft} : ${secondsLeft}`}
                   styles={buildStyles({
+                    textSize: "20px",
                     trailColor: "#fff",
                     pathColor:
                       pomodoroMode.current === "focus"
