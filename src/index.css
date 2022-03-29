@@ -77,3 +77,10 @@
 .span-2 {
   grid-column: span 2;
 }
+
+.count-success{
+  color: hsl(var(--green-500));
+}
+.count-fail{
+  color: hsl(var(--red-800));
+}
