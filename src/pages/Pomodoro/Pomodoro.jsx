@@ -6,38 +6,43 @@ import "react-circular-progressbar/dist/styles.css";
 import { useLocation } from "react-router-dom";
 
 export function Pomodoro() {
+  // get props passed with Link
   const location = useLocation();
   const { pomodoroTask } = location.state;
   const { title, desc, focusDuration, breakDuration } = pomodoroTask;
 
+  // set initial state
   const [isPaused, setPaused] = useState(true);
   const [pomodoroMode, setpomodoroMode] = useState("focus");
   const [seconds, setSeconds] = useState(0);
 
+  //set refs using useRef hook
   const percentageRef = useRef(100);
   const secondsRef = useRef(seconds);
   const pausedRef = useRef(isPaused);
   const pomodoroModeRef = useRef(pomodoroMode);
 
+  // convert Link props to Number type
   const focusMinutes = Number(focusDuration);
   const breakMinutes = Number(breakDuration);
 
+  // calculations for total time
   const totalSeconds =
     (pomodoroMode === "focus" ? focusMinutes : breakMinutes) * 60;
-  console.log(totalSeconds);
   percentageRef.current = (seconds / totalSeconds) * 100;
-  console.log(percentageRef);
 
   let minutesLeft = Math.floor(seconds / 60);
   let secondsLeft = seconds % 60;
   if (minutesLeft < 10) minutesLeft = `0${minutesLeft}`;
   if (secondsLeft < 10) secondsLeft = `0${secondsLeft}`;
 
+  // handle update seconds within setInterval
   const handleSecondsUpdate = () => {
     secondsRef.current--;
     setSeconds(secondsRef.current);
   };
 
+  // switch modes withing setInterval
   const switchPomodoroMode = () => {
     const newMode = pomodoroModeRef.current === "focus" ? "break" : "focus";
     const newSeconds = (newMode === "focus" ? focusMinutes : breakMinutes) * 60;
@@ -49,14 +54,13 @@ export function Pomodoro() {
     secondsRef.current = newSeconds;
   };
 
+  // initialize setInterval on render
   useEffect(() => {
     setSeconds(focusMinutes * 60);
     secondsRef.current = focusMinutes * 60;
 
     const interval = setInterval(() => {
-      console.log("run", secondsRef.current);
       if (pausedRef.current) {
-        console.log("pause");
         return;
       }
       if (secondsRef.current === 0) return switchPomodoroMode();
@@ -85,13 +89,13 @@ export function Pomodoro() {
                     textSize: "20px",
                     trailColor: "#fff",
                     pathColor:
-                      pomodoroMode.current === "focus"
-                        ? `hsl(16, 79%, 66%)`
-                        : `hsl(196, 79%, 66%)`,
+                      pomodoroModeRef.current === "focus"
+                        ? `hsl(196, 79%, 66%)`
+                        : `hsl(16, 79%, 66%)`,
                     textColor:
-                      pomodoroMode.current === "focus"
-                        ? `hsl(16, 79%, 66%)`
-                        : `hsl(196, 79%, 66%)`,
+                      pomodoroModeRef.current === "focus"
+                        ? `hsl(196, 79%, 66%)`
+                        : `hsl(16, 79%, 66%)`,
                   })}
                 />
               </div>
@@ -117,6 +121,7 @@ export function Pomodoro() {
                     pausedRef.current = true;
                     secondsRef.current = focusMinutes * 60;
                     setSeconds(focusMinutes * 60);
+                    pomodoroModeRef.current = "focus";
                   }}
                   btnStyles={"span-2"}
                 >
