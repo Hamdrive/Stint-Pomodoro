@@ -133,7 +133,7 @@ export function Pomodoro() {
           </section>
           <section>
             <div className={`${styles.pomodoro__task} round-top-1 px-md`}>
-              <div className="txt-lg txt-bold">{title}</div>
+              <div className="txt-lg txt-bold txt-center">{title}</div>
               <div className="my-2 txt-md">{desc}</div>
             </div>
           </section>

@@ -4,10 +4,11 @@
 }
 
 .pomodoro__task {
-    background-color: var(--color-white);
-    min-height: 100%;
+  padding: var(--size-15) var(--size-9);
+  background-color: var(--color-white);
+  min-height: 100%;
 }
 
-.pomodoro__timer{
+.pomodoro__timer {
   padding: var(--size-15) 0;
 }
