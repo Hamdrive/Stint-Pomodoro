@@ -1,0 +1,7 @@
+.ghost {
+  color: var(--color-black);
+}
+
+.ghost:hover {
+  background-color: hsl(var(--primary-color));
+}

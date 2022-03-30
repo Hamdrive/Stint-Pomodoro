@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import { Modal, Navbar } from "../../components";
 import styles from "./Tasks.module.css";
 
@@ -60,15 +61,21 @@ export function Tasks() {
                   key={task.id}
                   className={`${styles.task} my-1 flex-between`}
                 >
-                  <p className="txt-md">{task.title}</p>
-                  <div>
+                  <Link
+                    to="/pomodoro"
+                    state={{ pomodoroTask: task }}
+                    className="dis-flex"
+                  >
+                    <p className="txt-md flex-grow-1">{task.title}</p>
+                  </Link>
+                  <div className="px-sm">
                     <div
                       onClick={() => handleTaskEdit(task.id)}
                       className={`fas fa-edit fa-2x pointer ${styles.task__icon} `}
                     ></div>
                     <div
                       onClick={() => handleTaskDelete(task.id)}
-                      className={`fas fa-trash fa-2x  pointer ${styles.task__icon} `}
+                      className={`fas fa-trash fa-2x pointer ${styles.task__icon} `}
                     ></div>
                   </div>
                 </div>

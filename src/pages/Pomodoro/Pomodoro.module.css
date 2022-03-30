@@ -1,0 +1,14 @@
+.pomodoro__section {
+  background-color: hsl(var(--primary-light-color), 0.5);
+  padding-top: var(--size-17);
+}
+
+.pomodoro__task {
+  padding: var(--size-15) var(--size-9);
+  background-color: var(--color-white);
+  min-height: 100%;
+}
+
+.pomodoro__timer {
+  padding: var(--size-15) 0;
+}

@@ -1,12 +1,19 @@
 import React, { useState } from "react";
 import styles from "./Modal.module.css";
 import { v4 as uuidv4 } from "uuid";
+import { PrimaryGhostBtn } from "../PrimaryGhostButton/PrimaryGhostBtn";
+import { SecondaryBtn } from "../Secondary Button/SecondaryBtn";
 
 const getInfo = (tasks, modal) => tasks.filter((task) => task.id === modal.id);
 
 export function Modal({ toggleModal, setTasks, tasks, modal }) {
   const [info, setInfo] = useState(
-    getInfo(tasks, modal)[0] || { title: "", desc: "", duration: "60" }
+    getInfo(tasks, modal)[0] || {
+      title: "",
+      desc: "",
+      focusDuration: "60",
+      breakDuration: "30",
+    }
   );
 
   const handleChange = (e) => {
@@ -69,8 +76,8 @@ export function Modal({ toggleModal, setTasks, tasks, modal }) {
             ></textarea>
           </div>
           <div className="input-section">
-            <label htmlFor="input" className="form-input input-required">
-              Task duration
+            <label htmlFor="focusDuration" className="form-input input-required">
+              Focus duration
             </label>
 
             <input
@@ -78,8 +85,9 @@ export function Modal({ toggleModal, setTasks, tasks, modal }) {
               min="15"
               max="90"
               step="15"
-              name="duration"
-              value={info.duration}
+              name="focusDuration"
+              id="focusDuration"
+              value={info.focusDuration}
               list="tickmarks"
               className="slider"
               onChange={(e) => handleChange(e)}
@@ -96,21 +104,49 @@ export function Modal({ toggleModal, setTasks, tasks, modal }) {
               <option className="txt-semibold" value="90" label="90m"></option>
             </datalist>
           </div>
-          <footer className={`${styles.modal__footer}`}>
-            <button
-              onClick={toggleModal}
-              className={`btn btn-md mx-sm ${styles.outline}`}
+          <div className="input-section">
+            <label
+              htmlFor="breakDuration"
+              className="form-input input-required"
             >
+              Break duration
+            </label>
+
+            <input
+              type="range"
+              min="15"
+              max="60"
+              step="15"
+              name="breakDuration"
+              id="breakDuration"
+              value={info.breakDuration}
+              list="tickmarks"
+              className="slider"
+              onChange={(e) => handleChange(e)}
+            />
+            <datalist
+              className="datalist flex-between txt-sm w-100"
+              id="tickmarks"
+            >
+              <option className="txt-semibold" value="15" label="15m"></option>
+              <option className="txt-semibold" value="30" label="30m"></option>
+              <option className="txt-semibold" value="45" label="45m"></option>
+              <option className="txt-semibold" value="60" label="60m"></option>
+            </datalist>
+          </div>
+          <footer className={`${styles.modal__footer}`}>
+            <SecondaryBtn onClick={toggleModal} id={"cancel"}>
               Cancel
-            </button>
-            <button
+            </SecondaryBtn>
+            <PrimaryGhostBtn
+              disabled={
+                !info.title || !info.focusDuration || !info.breakDuration
+              }
               onClick={(e) => handleSubmit(e)}
-              id="add"
-              disabled={!info.title || !info.duration}
-              className={`btn btn-md mx-sm ${styles.ghost}`}
+              id={"add"}
             >
               {modal.id ? "Update" : "Add"}
-            </button>
+            </PrimaryGhostBtn>
           </footer>
         </form>
         <div

@@ -37,22 +37,7 @@
   margin: var(--size-7) 0;
 }
 
-.outline {
-  background-color: hsl(var(--complementary-light-color), 0.5);
-  outline: var(--size-2) solid hsl(var(--complementary-color));
-  color: var(--color-black);
-}
 
-.outline:hover {
-  background-color: hsl(var(--complementary-light-color), 0.3);
-  outline: var(--size-2) solid hsl(var(--complementary-color), 0.3);
-}
-.ghost {
-  color: var(--color-black);
-}
-.ghost:hover {
-  background-color: hsl(var(--primary-color));
-}
 
 .close {
   position: absolute;
