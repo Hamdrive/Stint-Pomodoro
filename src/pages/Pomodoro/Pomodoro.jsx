@@ -71,6 +71,14 @@ export function Pomodoro() {
     return () => clearInterval(interval);
   }, []);
 
+  // update page title with time and mode
+  useEffect(() => {
+    document.title =
+      pomodoroMode === "focus"
+        ? `${minutesLeft} : ${secondsLeft} 👨‍💻 | Pomodoro`
+        : `${minutesLeft} : ${secondsLeft} ☕ | Pomodoro`;
+  }, [minutesLeft, secondsLeft, pomodoroMode]);
+
   return (
     <>
       <Navbar />
