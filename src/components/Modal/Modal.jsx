@@ -7,7 +7,6 @@ import { SecondaryBtn } from "../Secondary Button/SecondaryBtn";
 const getInfo = (tasks, modal) => tasks.filter((task) => task.id === modal.id);
 
 export function Modal({ toggleModal, setTasks, tasks, modal }) {
-  const [count, setCount] = useState({ titleCount: 0, descCount: 0 });
   const [info, setInfo] = useState(
     getInfo(tasks, modal)[0] || {
       title: "",
@@ -16,6 +15,10 @@ export function Modal({ toggleModal, setTasks, tasks, modal }) {
       breakDuration: "30",
     }
   );
+  const [count, setCount] = useState({
+    titleCount: info.title.length,
+    descCount: info.desc.length,
+  });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -66,11 +69,12 @@ export function Modal({ toggleModal, setTasks, tasks, modal }) {
             />
             {count.titleCount >= 50 ? (
               <p className="count-success txt-reg">
-                <i className="fas fa-check-circle fa-sm"></i> Done
+                <i className="fas fa-check-circle fa-sm"></i> Great work done
               </p>
             ) : (
               <p className="count-fail txt-reg">
-                <i className="fas fa-times-circle fa-sm"></i> ({count.titleCount}
+                <i className="fas fa-times-circle fa-sm"></i> (
+                {count.titleCount}
                 /50)
               </p>
             )}
@@ -90,7 +94,7 @@ export function Modal({ toggleModal, setTasks, tasks, modal }) {
             ></textarea>
             {count.descCount >= 100 ? (
               <p className="count-success txt-reg">
-                <i className="fas fa-check-circle fa-sm"></i> Done
+                <i className="fas fa-check-circle fa-sm"></i> Great work done
               </p>
             ) : (
               <p className="count-fail txt-reg">
@@ -100,7 +104,10 @@ export function Modal({ toggleModal, setTasks, tasks, modal }) {
             )}
           </div>
           <div className="input-section">
-            <label htmlFor="focusDuration" className="form-input input-required">
+            <label
+              htmlFor="focusDuration"
+              className="form-input input-required"
+            >
               Focus duration
             </label>
 
@@ -167,7 +174,8 @@ export function Modal({ toggleModal, setTasks, tasks, modal }) {
                 !info.title ||
                 !info.focusDuration ||
                 !info.breakDuration ||
-                (count.titleCount < 50 || count.descCount < 100)
+                count.titleCount < 50 ||
+                count.descCount < 100
               }
               onClick={(e) => handleSubmit(e)}
               id={"add"}
