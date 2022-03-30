@@ -100,7 +100,7 @@ export function Modal({ toggleModal, setTasks, tasks, modal }) {
             )}
           </div>
           <div className="input-section">
-            <label htmlFor="input" className="form-input input-required">
+            <label htmlFor="focusDuration" className="form-input input-required">
               Focus duration
             </label>
 
@@ -110,6 +110,7 @@ export function Modal({ toggleModal, setTasks, tasks, modal }) {
               max="90"
               step="15"
               name="focusDuration"
+              id="focusDuration"
               value={info.focusDuration}
               list="tickmarks"
               className="slider"
@@ -128,7 +129,10 @@ export function Modal({ toggleModal, setTasks, tasks, modal }) {
             </datalist>
           </div>
           <div className="input-section">
-            <label htmlFor="input" className="form-input input-required">
+            <label
+              htmlFor="breakDuration"
+              className="form-input input-required"
+            >
               Break duration
             </label>
 
@@ -138,6 +142,7 @@ export function Modal({ toggleModal, setTasks, tasks, modal }) {
               max="60"
               step="15"
               name="breakDuration"
+              id="breakDuration"
               value={info.breakDuration}
               list="tickmarks"
               className="slider"
