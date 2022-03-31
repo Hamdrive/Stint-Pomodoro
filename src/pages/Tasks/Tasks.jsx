@@ -1,26 +1,34 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Modal, Navbar } from "../../components";
+import { useTheme } from "../../context/theme-context";
 import styles from "./Tasks.module.css";
 
 export function Tasks() {
+  // set modal initial states
   const [modal, setModal] = useState({ id: "", display: false });
   const [tasks, setTasks] = useState(
     JSON.parse(localStorage.getItem("userTasks")) || []
   );
 
+  const { theme } = useTheme();
+
+  // delete task
   const handleTaskDelete = (taskID) => {
     setTasks((prevTasks) => prevTasks.filter((task) => task.id !== taskID));
   };
 
+  // edit task
   const handleTaskEdit = (taskID) => {
     setModal((prev) => ({ ...prev, id: taskID, display: !prev.display }));
   };
 
+  // changes modal state visiibility
   const toggleModal = () => {
     setModal((prev) => ({ ...prev, display: !prev.display }));
   };
 
+  // stores tasks in localstorage
   useEffect(() => {
     localStorage.setItem("userTasks", JSON.stringify(tasks));
   }, [tasks]);
@@ -28,7 +36,11 @@ export function Tasks() {
   return (
     <main>
       <Navbar />
-      <div className="main container-height">
+      <div
+        className={` ${
+          theme ? "background__dark text__dark" : "background__light"
+        } container-height`}
+      >
         <section className="max-width-1200 mx-auto px-md pos-rel">
           {modal.display && (
             <Modal
