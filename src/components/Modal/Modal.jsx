@@ -4,6 +4,7 @@ import { v4 as uuidv4 } from "uuid";
 import { PrimaryGhostBtn } from "../PrimaryGhostButton/PrimaryGhostBtn";
 import { SecondaryBtn } from "../Secondary Button/SecondaryBtn";
 
+// allow state to access on initialization
 const getInfo = (tasks, modal) => tasks.filter((task) => task.id === modal.id);
 
 export function Modal({ toggleModal, setTasks, tasks, modal }) {
@@ -20,12 +21,14 @@ export function Modal({ toggleModal, setTasks, tasks, modal }) {
     descCount: info.desc.length,
   });
 
+  // update information
   const handleChange = (e) => {
     const { name, value } = e.target;
     setInfo((prevInfo) => ({ ...prevInfo, [name]: value }));
     setCount((prev) => ({ ...prev, [`${name}Count`]: value.length }));
   };
 
+  // update tasks on localstorage
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -47,7 +50,7 @@ export function Modal({ toggleModal, setTasks, tasks, modal }) {
   };
 
   return (
-    <div className={`pos-rel`}>
+    <div className={`text__light pos-rel`}>
       <div onClick={toggleModal} className={`${styles.overlay}`}></div>
       <section className={`${styles.modal} ${styles.modal__container}`}>
         <h2>Task</h2>
@@ -68,7 +71,7 @@ export function Modal({ toggleModal, setTasks, tasks, modal }) {
             />
             {count.titleCount >= 50 ? (
               <p className="count-success txt-reg">
-                <i className="fas fa-check-circle fa-sm"></i> Great work done
+                <i className="fas fa-check-circle fa-sm"></i> Good To Go
               </p>
             ) : (
               <p className="count-fail txt-reg">
@@ -93,7 +96,7 @@ export function Modal({ toggleModal, setTasks, tasks, modal }) {
             ></textarea>
             {count.descCount >= 100 ? (
               <p className="count-success txt-reg">
-                <i className="fas fa-check-circle fa-sm"></i> Great work done
+                <i className="fas fa-check-circle fa-sm"></i> Good To Go
               </p>
             ) : (
               <p className="count-fail txt-reg">

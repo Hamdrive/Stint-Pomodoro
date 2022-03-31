@@ -1,13 +1,24 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useTheme } from "../../context/theme-context";
 import styles from "./Navbar.module.css";
 
 export function Navbar() {
+  const { theme, updateTheme } = useTheme();
+
   return (
-    <div className={`${styles.header} header pos-st top-left-pos py-md`}>
+    <div
+      className={`${
+        theme ? styles.header__dark : styles.header__light
+      } header pos-st top-left-pos py-md`}
+    >
       <header className="max-width-1200 nav-main flex-row px-md mx-auto">
         <Link to="/">
-          <div className={`${styles.nav__logo} nav-logo`}>
+          <div
+            className={`${
+              theme ? styles.nav__logo__dark : styles.nav__logo__light
+            } nav-logo`}
+          >
             <div
               className={`fas fa-flag-checkered fa-1x ${styles.flag__rotate}`}
             ></div>{" "}
@@ -31,23 +42,19 @@ export function Navbar() {
                 <div className="fab fa-github px-sm"></div>Github
               </a>
             </li>
-            {/* {true ? (
               <li className={`${styles.nav__item} nav-item`}>
-                <div className="badge">
-                  <div
-                    className={`fas fa-moon ${styles.badge__icon} pointer txt-md px-sm`}
-                  ></div>
+                <div onClick={() => updateTheme()} className="badge">
+                  {theme ? (
+                    <div
+                      className={`fas fa-sun ${styles.badge__icon__dark} pointer txt-md px-sm`}
+                    ></div>
+                  ) : (
+                    <div
+                      className={`fas fa-moon ${styles.badge__icon__light} pointer txt-md px-sm`}
+                    ></div>
+                  )}
                 </div>
               </li>
-            ) : (
-              <li className={`${styles.nav__item} nav-item`}>
-                <div className="badge">
-                  <div
-                    className={`fas fa-sun ${styles.badge__icon} pointer txt-md px-sm`}
-                  ></div>
-                </div>
-              </li>
-            )} */}
           </ul>
         </nav>
       </header>

@@ -1,9 +1,18 @@
-.header{
+.header__light{
     background-color: var(--color-white);
 }
 
-.nav__logo{
+.header__dark{
+    background-color: hsl(var(--darktheme-secondary-color));
+}
+
+.nav__logo__light{
     color: hsl(var(--primary-dark-color));
+    font-size: var(--size-13);
+}
+
+.nav__logo__dark{
+    color: var(--color-white);
     font-size: var(--size-13);
 }
 
@@ -23,8 +32,12 @@
     margin: 0 var(--size-13);
 }
 
-.badge__icon{
+.badge__icon__light{
     color: hsl(var(--primary-dark-color));
+}
+
+.badge__icon__dark{
+    color: var(--color-white);
 }
 
 .flag__rotate {

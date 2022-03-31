@@ -7,5 +7,7 @@
   --complementary-dark-color: 16, 79%, 56%;
   --red-800: 0, 74%, 54%;
   --grey-500: 210, 11%, 71%;
-  --green-500: 125, 100%, 39%
+  --green-500: 125, 100%, 39%;
+  --darktheme-primary-color: 220, 15%, 16%;
+  --darktheme-secondary-color: 217, 19%, 27%;
 }

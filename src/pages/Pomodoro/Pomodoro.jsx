@@ -4,6 +4,7 @@ import { Navbar, PrimaryGhostBtn, SecondaryBtn } from "../../components";
 import styles from "./Pomodoro.module.css";
 import "react-circular-progressbar/dist/styles.css";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useTheme } from "../../context/theme-context";
 
 export function Pomodoro() {
   // get props passed with Link
@@ -11,6 +12,9 @@ export function Pomodoro() {
   const navigate = useNavigate();
   const { pomodoroTask } = location.state;
   const { title, desc, focusDuration, breakDuration } = pomodoroTask;
+
+  // get theme context
+  const { theme } = useTheme();
 
   // set initial state
   const [pomodoroMode, setpomodoroMode] = useState("focus");
@@ -85,7 +89,11 @@ export function Pomodoro() {
   return (
     <>
       <Navbar />
-      <section className="main">
+      <section
+        className={`${
+          theme ? "background__dark text__dark" : "background__light"
+        }`}
+      >
         <div
           className={` ${styles.pomodoro__section} grid-container grid-2 gap-2 container-height round-top-1 max-width-1200 px-md mx-auto`}
         >
@@ -95,7 +103,7 @@ export function Pomodoro() {
                 <i class="fas fa-arrow-left"></i>
                 Return to Tasks
               </SecondaryBtn>
-              <div className={` ${styles.pomodoro__timer}  mx-auto w-70 h-70`}>
+              <div className={` ${styles.pomodoro__timer}  mx-auto w-60 h-60`}>
                 <CircularProgressbar
                   counterClockwise={true}
                   value={percentageRef.current}
@@ -147,9 +155,9 @@ export function Pomodoro() {
             </div>
           </section>
           <section>
-            <div className={`${styles.pomodoro__task} round-top-1 px-md`}>
-              <div className="txt-lg txt-bold txt-center">{title}</div>
-              <div className="my-2 txt-md">{desc}</div>
+            <div className={`${styles.pomodoro__task} text__light round-top-1 px-md`}>
+              <div className="txt-lg word-break txt-bold txt-center">{title}</div>
+              <div className="my-2 word-break txt-md">{desc}</div>
             </div>
           </section>
         </div>
