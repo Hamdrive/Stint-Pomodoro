@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import Helmet from "react-helmet";
 import { Link } from "react-router-dom";
 import { Modal } from "../../components";
 import { useTheme } from "../../context/theme-context";
@@ -35,6 +36,9 @@ export function Tasks() {
 
   return (
     <main>
+      <Helmet>
+        <title>Tasks | Driver's Pomodoro</title>
+      </Helmet>
       <div
         className={` ${
           theme ? "background__dark text__dark" : "background__light"

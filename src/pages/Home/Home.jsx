@@ -2,12 +2,16 @@ import React from "react";
 import Hero from "../../assets/hero-image.png";
 import { Link } from "react-router-dom";
 import { useTheme } from "../../context/theme-context";
+import Helmet from "react-helmet";
 
 export function Home() {
   const { theme } = useTheme();
 
   return (
     <>
+    <Helmet>
+      <title>Home | Driver's Pomodoro</title>
+    </Helmet>
       <div
         className={` ${
           theme ? "background__dark text__dark" : "background__light"
