@@ -102,3 +102,7 @@
 .mobile-navbar{
   display: none;
 }
+
+.slider {
+  accent-color: hsl(var(--primary-dark-color));
+}
