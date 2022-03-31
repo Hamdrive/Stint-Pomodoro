@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { Modal, Navbar } from "../../components";
+import { Modal } from "../../components";
 import { useTheme } from "../../context/theme-context";
 import styles from "./Tasks.module.css";
 
@@ -35,7 +35,6 @@ export function Tasks() {
 
   return (
     <main>
-      <Navbar />
       <div
         className={` ${
           theme ? "background__dark text__dark" : "background__light"

@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { buildStyles, CircularProgressbar } from "react-circular-progressbar";
-import { Navbar, PrimaryGhostBtn, SecondaryBtn } from "../../components";
+import { PrimaryGhostBtn, SecondaryBtn } from "../../components";
 import styles from "./Pomodoro.module.css";
 import "react-circular-progressbar/dist/styles.css";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -88,7 +88,6 @@ export function Pomodoro() {
 
   return (
     <>
-      <Navbar />
       <section
         className={`${
           theme ? "background__dark text__dark" : "background__light"
@@ -155,8 +154,12 @@ export function Pomodoro() {
             </div>
           </section>
           <section>
-            <div className={`${styles.pomodoro__task} text__light round-top-1 px-md`}>
-              <div className="txt-lg word-break txt-bold txt-center">{title}</div>
+            <div
+              className={`${styles.pomodoro__task} text__light round-top-1 px-md`}
+            >
+              <div className="txt-lg word-break txt-bold txt-center">
+                {title}
+              </div>
               <div className="my-2 word-break txt-md">{desc}</div>
             </div>
           </section>

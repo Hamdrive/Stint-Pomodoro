@@ -1,9 +1,11 @@
 import { Route, Routes } from "react-router-dom";
+import { Navbar } from "./components";
 import { Home, Pomodoro, Tasks } from "./pages";
 
 function App() {
   return (
     <div className="theme-wrapper">
+      <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/tasks" element={<Tasks />} />

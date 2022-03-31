@@ -1,5 +1,4 @@
 import React from "react";
-import { Navbar } from "../../components";
 import Hero from "../../assets/hero-image.png";
 import { Link } from "react-router-dom";
 import { useTheme } from "../../context/theme-context";
@@ -9,7 +8,6 @@ export function Home() {
 
   return (
     <>
-      <Navbar />
       <div
         className={` ${
           theme ? "background__dark text__dark" : "background__light"
