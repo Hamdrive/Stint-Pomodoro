@@ -31,7 +31,7 @@ export function Navbar() {
                 <div className="fab fa-github px-sm"></div>Github
               </a>
             </li>
-            {true ? (
+            {/* {true ? (
               <li className={`${styles.nav__item} nav-item`}>
                 <div className="badge">
                   <div
@@ -47,7 +47,7 @@ export function Navbar() {
                   ></div>
                 </div>
               </li>
-            )}
+            )} */}
           </ul>
         </nav>
       </header>

@@ -15,10 +15,15 @@ export function Modal({ toggleModal, setTasks, tasks, modal }) {
       breakDuration: "30",
     }
   );
+  const [count, setCount] = useState({
+    titleCount: info.title.length,
+    descCount: info.desc.length,
+  });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setInfo((prevInfo) => ({ ...prevInfo, [name]: value }));
+    setCount((prev) => ({ ...prev, [`${name}Count`]: value.length }));
   };
 
   const handleSubmit = (e) => {
@@ -61,6 +66,17 @@ export function Modal({ toggleModal, setTasks, tasks, modal }) {
               onChange={(e) => handleChange(e)}
               required
             />
+            {count.titleCount >= 50 ? (
+              <p className="count-success txt-reg">
+                <i className="fas fa-check-circle fa-sm"></i> Great work done
+              </p>
+            ) : (
+              <p className="count-fail txt-reg">
+                <i className="fas fa-times-circle fa-sm"></i> (
+                {count.titleCount}
+                /50)
+              </p>
+            )}
           </div>
           <div className="input-section input-textarea">
             <label htmlFor="textarea" className="form-input">
@@ -68,15 +84,29 @@ export function Modal({ toggleModal, setTasks, tasks, modal }) {
             </label>
             <textarea
               name="desc"
+              rows={5}
               className="input-corner input-md border-2"
               id="textarea"
               value={info.desc || ""}
               placeholder="Add Description"
               onChange={(e) => handleChange(e)}
             ></textarea>
+            {count.descCount >= 100 ? (
+              <p className="count-success txt-reg">
+                <i className="fas fa-check-circle fa-sm"></i> Great work done
+              </p>
+            ) : (
+              <p className="count-fail txt-reg">
+                <i className="fas fa-times-circle fa-sm"></i> ({count.descCount}
+                /100)
+              </p>
+            )}
           </div>
           <div className="input-section">
-            <label htmlFor="focusDuration" className="form-input input-required">
+            <label
+              htmlFor="focusDuration"
+              className="form-input input-required"
+            >
               Focus duration
             </label>
 
@@ -140,7 +170,11 @@ export function Modal({ toggleModal, setTasks, tasks, modal }) {
             </SecondaryBtn>
             <PrimaryGhostBtn
               disabled={
-                !info.title || !info.focusDuration || !info.breakDuration
+                !info.title ||
+                !info.focusDuration ||
+                !info.breakDuration ||
+                count.titleCount < 50 ||
+                count.descCount < 100
               }
               onClick={(e) => handleSubmit(e)}
               id={"add"}

@@ -1,6 +1,23 @@
 .task {
   background-color: var(--color-white);
   border-radius: var(--radius-extra-large);
+  animation: spin 2s linear infinite;
+  border: 2px solid hsl(var(--complementary-color));
+}
+
+.task:hover{
+  border: 2px dashed hsl(var(--complementary-color));
+}
+
+.task__title {
+  padding: var(--size-9) var(--size-11);
+  margin-left: auto;
+  word-break: break-all;
+}
+
+.task__controls {
+  display: flex;
+  align-items: center;
   padding: var(--size-9) var(--size-11);
 }
 

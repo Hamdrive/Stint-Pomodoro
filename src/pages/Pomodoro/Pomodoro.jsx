@@ -3,24 +3,24 @@ import { buildStyles, CircularProgressbar } from "react-circular-progressbar";
 import { Navbar, PrimaryGhostBtn, SecondaryBtn } from "../../components";
 import styles from "./Pomodoro.module.css";
 import "react-circular-progressbar/dist/styles.css";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export function Pomodoro() {
   // get props passed with Link
   const location = useLocation();
+  const navigate = useNavigate();
   const { pomodoroTask } = location.state;
   const { title, desc, focusDuration, breakDuration } = pomodoroTask;
 
   // set initial state
-  const [isPaused, setPaused] = useState(true);
   const [pomodoroMode, setpomodoroMode] = useState("focus");
   const [seconds, setSeconds] = useState(0);
 
   //set refs using useRef hook
   const percentageRef = useRef(100);
   const secondsRef = useRef(seconds);
-  const pausedRef = useRef(isPaused);
   const pomodoroModeRef = useRef(pomodoroMode);
+  const intervalRef = useRef(null);
 
   // convert Link props to Number type
   const focusMinutes = Number(focusDuration);
@@ -30,7 +30,6 @@ export function Pomodoro() {
   const totalSeconds =
     (pomodoroMode === "focus" ? focusMinutes : breakMinutes) * 60;
   percentageRef.current = (seconds / totalSeconds) * 100;
-
   let minutesLeft = Math.floor(seconds / 60);
   let secondsLeft = seconds % 60;
   if (minutesLeft < 10) minutesLeft = `0${minutesLeft}`;
@@ -54,22 +53,34 @@ export function Pomodoro() {
     secondsRef.current = newSeconds;
   };
 
+  // handle pause/restart count
+  const handleStopInterval = () => {
+    clearInterval(intervalRef.current);
+  };
+
+  // handle start count
+  const handleStartInterval = () => {
+    clearInterval(intervalRef.current);
+
+    intervalRef.current = setInterval(() => {
+      if (secondsRef.current === 0) return switchPomodoroMode();
+      handleSecondsUpdate();
+    }, 1000);
+  };
+
   // initialize setInterval on render
   useEffect(() => {
     setSeconds(focusMinutes * 60);
     secondsRef.current = focusMinutes * 60;
-
-    const interval = setInterval(() => {
-      if (pausedRef.current) {
-        return;
-      }
-      if (secondsRef.current === 0) return switchPomodoroMode();
-
-      handleSecondsUpdate();
-    }, 1000);
-
-    return () => clearInterval(interval);
   }, []);
+
+  // update page title with time and mode
+  useEffect(() => {
+    document.title =
+      pomodoroMode === "focus"
+        ? `${minutesLeft} : ${secondsLeft} 👨‍💻 | Pomodoro`
+        : `${minutesLeft} : ${secondsLeft} ☕ | Pomodoro`;
+  }, [minutesLeft, secondsLeft, pomodoroMode]);
 
   return (
     <>
@@ -80,6 +91,10 @@ export function Pomodoro() {
         >
           <section>
             <div className={`${styles.pomodoro__task} round-top-1 px-md `}>
+              <SecondaryBtn onClick={() => navigate("/tasks")}>
+                <i class="fas fa-arrow-left"></i>
+                Return to Tasks
+              </SecondaryBtn>
               <div className={` ${styles.pomodoro__timer}  mx-auto w-70 h-70`}>
                 <CircularProgressbar
                   counterClockwise={true}
@@ -101,7 +116,7 @@ export function Pomodoro() {
               </div>
               <div className="grid-container grid-2 gap-1">
                 <PrimaryGhostBtn
-                  onClick={() => (pausedRef.current = false)}
+                  onClick={() => handleStartInterval()}
                   id={"start-btn"}
                   btnStyles={"solid-primary"}
                 >
@@ -109,7 +124,7 @@ export function Pomodoro() {
                   Start
                 </PrimaryGhostBtn>
                 <PrimaryGhostBtn
-                  onClick={() => (pausedRef.current = true)}
+                  onClick={() => handleStopInterval()}
                   id={"pause-btn"}
                   btnStyles={"outline-primary"}
                 >
@@ -118,7 +133,7 @@ export function Pomodoro() {
                 </PrimaryGhostBtn>
                 <SecondaryBtn
                   onClick={() => {
-                    pausedRef.current = true;
+                    handleStopInterval();
                     secondsRef.current = focusMinutes * 60;
                     setSeconds(focusMinutes * 60);
                     pomodoroModeRef.current = "focus";

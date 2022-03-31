@@ -1,11 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Modal, Navbar } from "../../components";
 import styles from "./Tasks.module.css";
 
 export function Tasks() {
   const [modal, setModal] = useState({ id: "", display: false });
-  const [tasks, setTasks] = useState([]);
+  const [tasks, setTasks] = useState(
+    JSON.parse(localStorage.getItem("userTasks")) || []
+  );
 
   const handleTaskDelete = (taskID) => {
     setTasks((prevTasks) => prevTasks.filter((task) => task.id !== taskID));
@@ -18,6 +20,10 @@ export function Tasks() {
   const toggleModal = () => {
     setModal((prev) => ({ ...prev, display: !prev.display }));
   };
+
+  useEffect(() => {
+    localStorage.setItem("userTasks", JSON.stringify(tasks));
+  }, [tasks]);
 
   return (
     <main>
@@ -57,18 +63,17 @@ export function Tasks() {
             </div>
             <div className="task-list">
               {tasks.map((task) => (
-                <div
-                  key={task.id}
-                  className={`${styles.task} my-1 flex-between`}
-                >
+                <div key={task.id} className={`${styles.task} my-1 dis-flex`}>
                   <Link
                     to="/pomodoro"
                     state={{ pomodoroTask: task }}
-                    className="dis-flex"
+                    className="flex-grow-1"
                   >
-                    <p className="txt-md flex-grow-1">{task.title}</p>
+                    <p className={` ${styles.task__title} w-100 txt-md `}>
+                      {task.title}
+                    </p>
                   </Link>
-                  <div className="px-sm">
+                  <div className={`${styles.task__controls}`}>
                     <div
                       onClick={() => handleTaskEdit(task.id)}
                       className={`fas fa-edit fa-2x pointer ${styles.task__icon} `}
