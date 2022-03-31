@@ -5,7 +5,10 @@ const ThemeContext = createContext(null);
 const useTheme = () => useContext(ThemeContext);
 
 const ThemeProvider = ({ children }) => {
-  const [theme, setTheme] = useState(false);
+  // fetches user system theme preference
+  const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+
+  const [theme, setTheme] = useState(prefersDark);
 
   const updateTheme = () => {
     setTheme((prevTheme) => !prevTheme);

@@ -106,3 +106,7 @@
 .slider {
   accent-color: hsl(var(--primary-dark-color));
 }
+
+.word-break{
+  word-break: keep-all;
+}
