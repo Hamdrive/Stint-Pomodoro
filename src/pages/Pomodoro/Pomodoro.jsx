@@ -3,11 +3,12 @@ import { buildStyles, CircularProgressbar } from "react-circular-progressbar";
 import { Navbar, PrimaryGhostBtn, SecondaryBtn } from "../../components";
 import styles from "./Pomodoro.module.css";
 import "react-circular-progressbar/dist/styles.css";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export function Pomodoro() {
   // get props passed with Link
   const location = useLocation();
+  const navigate = useNavigate();
   const { pomodoroTask } = location.state;
   const { title, desc, focusDuration, breakDuration } = pomodoroTask;
 
@@ -90,6 +91,10 @@ export function Pomodoro() {
         >
           <section>
             <div className={`${styles.pomodoro__task} round-top-1 px-md `}>
+              <SecondaryBtn onClick={() => navigate("/tasks")}>
+                <i class="fas fa-arrow-left"></i>
+                Return to Tasks
+              </SecondaryBtn>
               <div className={` ${styles.pomodoro__timer}  mx-auto w-70 h-70`}>
                 <CircularProgressbar
                   counterClockwise={true}
