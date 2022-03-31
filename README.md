@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="/src/assets/hero-image.png" alt="drivers-pomodoro logo" width="250px" height="250px" />
+<img src="/src/assets/hero-image.png" alt="stint-pomodoro logo" width="250px" height="250px" />
   
 # Stint
 
@@ -8,8 +8,8 @@
 
 Stint is an easy-to-use task management and pomodoro timer that will help ensure you meet those deltas everytime!
 
-![Forks](https://img.shields.io/github/forks/Hamdrive/drivers-pomodoro)
-![Stars](https://img.shields.io/github/stars/Hamdrive/drivers-pomodoro)
+![Forks](https://img.shields.io/github/forks/Hamdrive/Stint-Pomodoro)
+![Stars](https://img.shields.io/github/stars/Hamdrive/Stint-Pomodoro)
 
 </div>
 
