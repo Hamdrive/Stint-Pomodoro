@@ -4,6 +4,7 @@ import { v4 as uuidv4 } from "uuid";
 import { PrimaryGhostBtn } from "../PrimaryGhostButton/PrimaryGhostBtn";
 import { SecondaryBtn } from "../Secondary Button/SecondaryBtn";
 
+// allow state to access on initialization
 const getInfo = (tasks, modal) => tasks.filter((task) => task.id === modal.id);
 
 export function Modal({ toggleModal, setTasks, tasks, modal }) {
@@ -20,15 +21,16 @@ export function Modal({ toggleModal, setTasks, tasks, modal }) {
     descCount: info.desc.length,
   });
 
+  // update information
   const handleChange = (e) => {
     const { name, value } = e.target;
     setInfo((prevInfo) => ({ ...prevInfo, [name]: value }));
     setCount((prev) => ({ ...prev, [`${name}Count`]: value.length }));
   };
 
+  // update tasks on localstorage
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(info);
 
     let isPresent = false;
     let updatedTasks = tasks.map((item) => {
