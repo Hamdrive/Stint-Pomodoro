@@ -3,11 +3,13 @@ import { Home, Pomodoro, Tasks } from "./pages";
 
 function App() {
   return (
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/tasks" element={<Tasks />} />
-      <Route path="/pomodoro" element={<Pomodoro />} />
-    </Routes>
+    <div className="theme-wrapper">
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/tasks" element={<Tasks />} />
+        <Route path="/pomodoro" element={<Pomodoro />} />
+      </Routes>
+    </div>
   );
 }
 

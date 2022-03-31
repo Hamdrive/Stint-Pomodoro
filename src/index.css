@@ -91,15 +91,15 @@
   background-color: hsl(var(--darktheme-primary-color));
 }
 
-.text__dark{
+.text__dark {
   color: var(--color-white);
 }
 
-.text__light{
+.text__light {
   color: var(--color-black);
 }
 
-.mobile-navbar{
+.mobile-navbar {
   display: none;
 }
 
@@ -107,6 +107,6 @@
   accent-color: hsl(var(--primary-dark-color));
 }
 
-.word-break{
+.word-break {
   word-break: break-word;
 }
