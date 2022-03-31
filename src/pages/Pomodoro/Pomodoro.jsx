@@ -5,6 +5,7 @@ import styles from "./Pomodoro.module.css";
 import "react-circular-progressbar/dist/styles.css";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useTheme } from "../../context/theme-context";
+import Helmet from "react-helmet";
 
 export function Pomodoro() {
   // get props passed with Link
@@ -78,16 +79,15 @@ export function Pomodoro() {
     secondsRef.current = focusMinutes * 60;
   }, []);
 
-  // update page title with time and mode
-  useEffect(() => {
-    document.title =
-      pomodoroMode === "focus"
-        ? `${minutesLeft} : ${secondsLeft} 👨‍💻 | Pomodoro`
-        : `${minutesLeft} : ${secondsLeft} ☕ | Pomodoro`;
-  }, [minutesLeft, secondsLeft, pomodoroMode]);
-
   return (
     <>
+      <Helmet>
+        <title>
+          {pomodoroMode === "focus"
+            ? `${minutesLeft} : ${secondsLeft} 👨‍💻 | Pomodoro`
+            : `${minutesLeft} : ${secondsLeft} ☕ | Pomodoro`}
+        </title>
+      </Helmet>
       <section
         className={`${
           theme ? "background__dark text__dark" : "background__light"
