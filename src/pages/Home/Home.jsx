@@ -1,14 +1,18 @@
 import React from "react";
 import { Navbar } from "../../components";
 import Hero from "../../assets/hero-image.png";
-import styles from "./Home.module.css";
 import { Link } from "react-router-dom";
+import { useTheme } from "../../context/theme-context";
 
 export function Home() {
+  const { theme } = useTheme();
+
   return (
     <>
       <Navbar />
-      <div className="main py-md">
+      <div
+        className={` ${theme ? "background__dark text__dark" : "background__light"} py-md`}
+      >
         <main className="max-width-1200 grid grid-cols-2 gap-2 grid-ver-center min-vh-85 mx-auto px-lg">
           <div className="content ml-4">
             <h1 className="txt-xl txt-semibold my-1">

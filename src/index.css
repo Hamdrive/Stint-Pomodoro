@@ -33,10 +33,6 @@
   cursor: pointer;
 }
 
-.main {
-  background-color: hsla(var(--primary-light-color), 0.2);
-}
-
 .min-h-100 {
   min-height: 100vh;
 }
@@ -61,7 +57,8 @@
   margin: 0;
 }
 
-#input, #textarea {
+#input,
+#textarea {
   font-family: var(--primary-font-family);
 }
 
@@ -71,16 +68,33 @@
 }
 
 .solid-primary {
-    background-color: hsl(var(--primary-color), 0.7);
+  background-color: hsl(var(--primary-color), 0.7);
 }
 
 .span-2 {
   grid-column: span 2;
 }
 
-.count-success{
+.count-success {
   color: hsl(var(--green-500));
 }
-.count-fail{
+
+.count-fail {
   color: hsl(var(--red-800));
+}
+
+.background__light {
+  background-color: hsla(var(--primary-light-color), 0.2);
+}
+
+.background__dark {
+  background-color: hsl(var(--darktheme-primary-color));
+}
+
+.text__dark{
+  color: var(--color-white);
+}
+
+.mobile-navbar{
+  display: none;
 }
