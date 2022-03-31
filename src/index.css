@@ -71,6 +71,10 @@
   background-color: hsl(var(--primary-color), 0.7);
 }
 
+.span-1{
+  grid-column: span 1;
+}
+
 .span-2 {
   grid-column: span 2;
 }
@@ -109,4 +113,30 @@
 
 .word-break {
   word-break: break-word;
+  white-space: normal;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: white;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: hsl(var(--primary-dark-color));
+  border-radius: var(--radius-rounded);
+}
+
+@media screen and (max-width: 768px) {
+  .main__home, .main__pomodoro {
+    display: block;
+  }
+
+  .main__pomodoro section:last-child{
+    margin-top: var(--size-13);
+  }
+  
 }

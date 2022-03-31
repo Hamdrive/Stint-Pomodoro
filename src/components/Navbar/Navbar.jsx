@@ -12,7 +12,7 @@ export function Navbar() {
         theme ? styles.header__dark : styles.header__light
       } header pos-st top-left-pos py-md`}
     >
-      <header className="max-width-1200 nav-main flex-row px-md mx-auto">
+      <header className="max-width-1200 nav-main flex-row flex-between px-md mx-auto">
         <Link to="/">
           <div
             className={`${
@@ -21,18 +21,13 @@ export function Navbar() {
           >
             <div
               className={`fas fa-flag-checkered fa-1x ${styles.flag__rotate}`}
-            ></div>{" "}
+            ></div>&nbsp;
             Stint
           </div>
         </Link>
 
-        <button className="hamburger">
-          <i className="fas fa-bars"></i>
-        </button>
-        <nav className="nav-list">
-          <button className="nav-list-close-btn">
-            <i className="fas fa-2x fa-times"></i>
-          </button>
+
+        <nav className="">
           <ul className={`${styles.nav__menu} dis-flex align-center h-100`}>
             <li className={`${styles.nav__item} nav-item`}>
               <a

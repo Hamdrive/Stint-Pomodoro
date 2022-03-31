@@ -91,17 +91,22 @@ export function Pomodoro() {
       <section
         className={`${
           theme ? "background__dark text__dark" : "background__light"
-        }`}
+        } overflow-y`}
       >
         <div
-          className={` ${styles.pomodoro__section} grid-container grid-2 gap-2 container-height round-top-1 max-width-1200 px-md mx-auto`}
+          className={` ${styles.pomodoro__section} grid-container grid-2 gap-2 container-height round-top-1 max-width-1200 px-md mx-auto main__pomodoro`}
         >
           <section>
             <div className={`${styles.pomodoro__task} round-top-1 px-md `}>
-              <SecondaryBtn onClick={() => navigate("/tasks")}>
-                <i class="fas fa-arrow-left"></i>
-                Return to Tasks
-              </SecondaryBtn>
+              <div className="grid-container grid-2">
+                <SecondaryBtn
+                  onClick={() => navigate("/tasks")}
+                  btnStyles={"span-1 word-break"}
+                >
+                  <i class="fas fa-arrow-left"></i>
+                  Return to Tasks
+                </SecondaryBtn>
+              </div>
               <div className={` ${styles.pomodoro__timer}  mx-auto w-60 h-60`}>
                 <CircularProgressbar
                   counterClockwise={true}
@@ -125,7 +130,7 @@ export function Pomodoro() {
                 <PrimaryGhostBtn
                   onClick={() => handleStartInterval()}
                   id={"start-btn"}
-                  btnStyles={"solid-primary"}
+                  btnStyles={"solid-primary word-break"}
                 >
                   <i className="fas fa-play"></i>
                   Start
@@ -133,7 +138,7 @@ export function Pomodoro() {
                 <PrimaryGhostBtn
                   onClick={() => handleStopInterval()}
                   id={"pause-btn"}
-                  btnStyles={"outline-primary"}
+                  btnStyles={"outline-primary word-break"}
                 >
                   <i className="fas fa-pause"></i>
                   Pause
@@ -145,7 +150,7 @@ export function Pomodoro() {
                     setSeconds(focusMinutes * 60);
                     pomodoroModeRef.current = "focus";
                   }}
-                  btnStyles={"span-2"}
+                  btnStyles={"span-2 word-break"}
                 >
                   <i className="fas fa-redo"></i>
                   Restart
