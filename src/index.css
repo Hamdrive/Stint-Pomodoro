@@ -95,6 +95,10 @@
   color: var(--color-white);
 }
 
+.text__light{
+  color: var(--color-black);
+}
+
 .mobile-navbar{
   display: none;
 }

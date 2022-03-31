@@ -48,7 +48,7 @@ export function Modal({ toggleModal, setTasks, tasks, modal }) {
   };
 
   return (
-    <div className={`pos-rel`}>
+    <div className={`text__light pos-rel`}>
       <div onClick={toggleModal} className={`${styles.overlay}`}></div>
       <section className={`${styles.modal} ${styles.modal__container}`}>
         <h2>Task</h2>
@@ -69,7 +69,7 @@ export function Modal({ toggleModal, setTasks, tasks, modal }) {
             />
             {count.titleCount >= 50 ? (
               <p className="count-success txt-reg">
-                <i className="fas fa-check-circle fa-sm"></i> Great work done
+                <i className="fas fa-check-circle fa-sm"></i> Good To Go
               </p>
             ) : (
               <p className="count-fail txt-reg">
@@ -94,7 +94,7 @@ export function Modal({ toggleModal, setTasks, tasks, modal }) {
             ></textarea>
             {count.descCount >= 100 ? (
               <p className="count-success txt-reg">
-                <i className="fas fa-check-circle fa-sm"></i> Great work done
+                <i className="fas fa-check-circle fa-sm"></i> Good To Go
               </p>
             ) : (
               <p className="count-fail txt-reg">
