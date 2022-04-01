@@ -69,7 +69,7 @@ export function Modal({ toggleModal, setTasks, tasks, modal }) {
               onChange={(e) => handleChange(e)}
               required
             />
-            {count.titleCount >= 50 ? (
+            {count.titleCount >= 10 ? (
               <p className="count-success txt-reg">
                 <i className="fas fa-check-circle fa-sm"></i> Good To Go
               </p>
@@ -77,7 +77,7 @@ export function Modal({ toggleModal, setTasks, tasks, modal }) {
               <p className="count-fail txt-reg">
                 <i className="fas fa-times-circle fa-sm"></i> (
                 {count.titleCount}
-                /50)
+                /10)
               </p>
             )}
           </div>
@@ -94,14 +94,14 @@ export function Modal({ toggleModal, setTasks, tasks, modal }) {
               placeholder="Add Description"
               onChange={(e) => handleChange(e)}
             ></textarea>
-            {count.descCount >= 100 ? (
+            {count.descCount >= 30 ? (
               <p className="count-success txt-reg">
                 <i className="fas fa-check-circle fa-sm"></i> Good To Go
               </p>
             ) : (
               <p className="count-fail txt-reg">
                 <i className="fas fa-times-circle fa-sm"></i> ({count.descCount}
-                /100)
+                /30)
               </p>
             )}
           </div>
@@ -176,8 +176,8 @@ export function Modal({ toggleModal, setTasks, tasks, modal }) {
                 !info.title ||
                 !info.focusDuration ||
                 !info.breakDuration ||
-                count.titleCount < 50 ||
-                count.descCount < 100
+                count.titleCount < 10 ||
+                count.descCount < 30
               }
               onClick={(e) => handleSubmit(e)}
               id={"add"}
