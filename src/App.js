@@ -1,6 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import { Navbar } from "./components";
-import { Home, Pomodoro, Tasks } from "./pages";
+import { Home, Pomodoro, Tasks, InvalidRoute } from "./pages";
 
 function App() {
   return (
@@ -10,6 +10,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/tasks" element={<Tasks />} />
         <Route path="/pomodoro" element={<Pomodoro />} />
+        <Route path="*" element={<InvalidRoute />} />
       </Routes>
     </div>
   );
