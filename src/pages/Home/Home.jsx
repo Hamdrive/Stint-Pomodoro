@@ -10,7 +10,7 @@ export function Home() {
   return (
     <>
     <Helmet>
-      <title>Home | Driver's Pomodoro</title>
+      <title>Home | Stint Pomodoro</title>
     </Helmet>
       <div
         className={` ${
