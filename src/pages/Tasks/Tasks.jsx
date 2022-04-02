@@ -1,22 +1,22 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Helmet from "react-helmet";
 import { Link } from "react-router-dom";
 import { Modal } from "../../components";
+import { useTask } from "../../context/task-context";
 import { useTheme } from "../../context/theme-context";
+import { deleteTask } from "../utils.js";
 import styles from "./Tasks.module.css";
 
 export function Tasks() {
   // set modal initial states
   const [modal, setModal] = useState({ id: "", display: false });
-  const [tasks, setTasks] = useState(
-    JSON.parse(localStorage.getItem("userTasks")) || []
-  );
 
   const { theme } = useTheme();
+  const { tasks, handleTasks } = useTask();
 
   // delete task
   const handleTaskDelete = (taskID) => {
-    setTasks((prevTasks) => prevTasks.filter((task) => task.id !== taskID));
+    handleTasks(deleteTask(tasks, taskID));
   };
 
   // edit task
@@ -29,11 +29,6 @@ export function Tasks() {
     setModal((prev) => ({ ...prev, display: !prev.display }));
   };
 
-  // stores tasks in localstorage
-  useEffect(() => {
-    localStorage.setItem("userTasks", JSON.stringify(tasks));
-  }, [tasks]);
-
   return (
     <main>
       <Helmet>
@@ -45,15 +40,7 @@ export function Tasks() {
         } container-height`}
       >
         <section className="max-width-1200 mx-auto px-md pos-rel">
-          {modal.display && (
-            <Modal
-              toggleModal={toggleModal}
-              tasks={tasks}
-              setTasks={setTasks}
-              modal={modal}
-              setModal={setModal}
-            />
-          )}
+          {modal.display && <Modal toggleModal={toggleModal} modal={modal} />}
           <div className="intro py-md">
             <h1 className="greeting txt-semibold">Welcome back, Hamza!</h1>
             {tasks.length === 0 ? (
