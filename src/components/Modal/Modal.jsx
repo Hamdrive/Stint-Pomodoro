@@ -6,16 +6,17 @@ import { useTask } from "../../context/task-context";
 import { getTaskInfo, updateTasks } from "../../pages/utils.js";
 import axios from "axios";
 
-export function Modal({ toggleModal, modal }) {
-  const { tasks, handleTasks } = useTask();
-  const [info, setInfo] = useState(
-    getTaskInfo(tasks, modal)[0] || {
+const initialModalState = {
       title: "",
       desc: "",
       focusDuration: "60",
       breakDuration: "30",
     }
-  );
+
+export function Modal({ toggleModal, modal }) {
+  const { tasks, handleTasks } = useTask();
+  const [info, setInfo] = useState(
+    getTaskInfo(tasks, modal)[0] || initialModalState);
   const [count, setCount] = useState({
     titleCount: info.title.length,
     descCount: info.desc.length,
@@ -39,6 +40,7 @@ export function Modal({ toggleModal, modal }) {
 
     if (res.status === 200 || res.status === 201) {
       handleTasks(getupdatedTasks);
+      setInfo(initialModalState)
       toggleModal();
     }
   };

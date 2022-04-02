@@ -68,8 +68,7 @@ export function Tasks() {
                 tasks.map((task) => (
                   <div key={task.id} className={`${styles.task} my-1 dis-flex`}>
                     <Link
-                      to="/pomodoro"
-                      state={{ pomodoroTask: task }}
+                      to={`/pomodoro/${task.id}`}
                       className="flex-grow-1"
                     >
                       <p className={` ${styles.task__title} w-100 txt-md `}>

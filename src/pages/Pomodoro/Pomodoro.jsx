@@ -3,19 +3,23 @@ import { buildStyles, CircularProgressbar } from "react-circular-progressbar";
 import { PrimaryGhostBtn, SecondaryBtn } from "../../components";
 import styles from "./Pomodoro.module.css";
 import "react-circular-progressbar/dist/styles.css";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useTheme } from "../../context/theme-context";
 import Helmet from "react-helmet";
+import { useTask } from "../../context/task-context";
 
 export function Pomodoro() {
-  // get props passed with Link
-  const location = useLocation();
-  const navigate = useNavigate();
-  const { pomodoroTask } = location.state;
-  const { title, desc, focusDuration, breakDuration } = pomodoroTask;
-
-  // get theme context
+  // get theme and task context
   const { theme } = useTheme();
+  const { tasks } = useTask();
+
+  // handle navigating back to tasks
+  const navigate = useNavigate();
+
+  // handle fetching specific product using Params
+  const { id } = useParams();
+  const pomodoroTask = tasks.filter((task) => task.id === id);
+  const { title, desc, focusDuration, breakDuration } = pomodoroTask[0];
 
   // set initial state
   const [pomodoroMode, setpomodoroMode] = useState("focus");
@@ -28,8 +32,8 @@ export function Pomodoro() {
   const intervalRef = useRef(null);
 
   // convert Link props to Number type
-  const focusMinutes = Number(focusDuration);
-  const breakMinutes = Number(breakDuration);
+  const focusMinutes = Number(focusDuration) || 0;
+  const breakMinutes = Number(breakDuration) || 0;
 
   // calculations for total time
   const totalSeconds =
