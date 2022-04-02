@@ -37,7 +37,7 @@ export function Tasks() {
   return (
     <main>
       <Helmet>
-        <title>Tasks | Driver's Pomodoro</title>
+        <title>Tasks | Stint Pomodoro</title>
       </Helmet>
       <div
         className={` ${
