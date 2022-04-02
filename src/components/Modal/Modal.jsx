@@ -7,16 +7,17 @@ import { getTaskInfo, updateTasks } from "../../pages/utils.js";
 import axios from "axios";
 
 const initialModalState = {
-      title: "",
-      desc: "",
-      focusDuration: "60",
-      breakDuration: "30",
-    }
+  title: "",
+  desc: "",
+  focusDuration: "60",
+  breakDuration: "30",
+};
 
 export function Modal({ toggleModal, modal }) {
   const { tasks, handleTasks } = useTask();
   const [info, setInfo] = useState(
-    getTaskInfo(tasks, modal)[0] || initialModalState);
+    getTaskInfo(tasks, modal)[0] || initialModalState
+  );
   const [count, setCount] = useState({
     titleCount: info.title.length,
     descCount: info.desc.length,
@@ -33,14 +34,22 @@ export function Modal({ toggleModal, modal }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const getupdatedTasks = updateTasks(tasks, info);
-    const res = await axios.post(
-      "https://62478c20229b222a3fcdfa2c.mockapi.io/api/v1/tasks",
-      getupdatedTasks[0]
-    );
+    let res;
+    if (modal.id) {
+      res = await axios.put(
+        `https://62478c20229b222a3fcdfa2c.mockapi.io/api/v1/tasks/${modal.id}`,
+        getupdatedTasks[0]
+      );
+    } else {
+      res = await axios.post(
+        "https://62478c20229b222a3fcdfa2c.mockapi.io/api/v1/tasks",
+        getupdatedTasks[0]
+      );
+    }
 
     if (res.status === 200 || res.status === 201) {
       handleTasks(getupdatedTasks);
-      setInfo(initialModalState)
+      setInfo(initialModalState);
       toggleModal();
     }
   };

@@ -14,18 +14,20 @@ const TaskProvider = ({ children }) => {
     setTasks(updatedTasks);
   };
 
+  const fetchTasks = async () => {
+    try {
+      const res = await axios.get(
+        "https://62478c20229b222a3fcdfa2c.mockapi.io/api/v1/tasks"
+      );
+      setTasks(res.data);
+    } catch (error) {
+      throw Error(error);
+    }
+  };
+
   useEffect(() => {
-    (async () => {
-      try {
-        const res = await axios.get(
-          "https://62478c20229b222a3fcdfa2c.mockapi.io/api/v1/tasks"
-        );
-        setTasks(res.data);
-      } catch (error) {
-        throw Error(error);
-      }
-    })();
-  }, []);
+    fetchTasks();
+  }, [tasks]);
 
   // stores tasks in localstorage
   useEffect(() => {
