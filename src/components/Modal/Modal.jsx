@@ -36,7 +36,6 @@ export function Modal({ toggleModal, modal }) {
       "https://62478c20229b222a3fcdfa2c.mockapi.io/api/v1/tasks",
       { getupdatedTasks }
     );
-    console.log(res);
 
     if (res.status === 200 || res.status === 201) {
       handleTasks(getupdatedTasks);

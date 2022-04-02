@@ -20,7 +20,7 @@ const TaskProvider = ({ children }) => {
         const res = await axios.get(
           "https://62478c20229b222a3fcdfa2c.mockapi.io/api/v1/tasks"
         );
-        setTasks(res.tasks);
+        setTasks(res.data);
       } catch (error) {
         throw Error(error);
       }
