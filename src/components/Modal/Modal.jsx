@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import styles from "./Modal.module.css";
-import { v4 as uuidv4 } from "uuid";
 import { PrimaryGhostBtn } from "../PrimaryGhostButton/PrimaryGhostBtn";
 import { SecondaryBtn } from "../Secondary Button/SecondaryBtn";
+import { useTask } from "../../context/task-context";
+import { getTaskInfo, updateTasks } from "../../pages/utils.js";
+import axios from "axios";
 
-// allow state to access on initialization
-const getInfo = (tasks, modal) => tasks.filter((task) => task.id === modal.id);
-
-export function Modal({ toggleModal, setTasks, tasks, modal }) {
+export function Modal({ toggleModal, modal }) {
+  const { tasks, handleTasks } = useTask();
   const [info, setInfo] = useState(
-    getInfo(tasks, modal)[0] || {
+    getTaskInfo(tasks, modal)[0] || {
       title: "",
       desc: "",
       focusDuration: "60",
@@ -29,24 +29,19 @@ export function Modal({ toggleModal, setTasks, tasks, modal }) {
   };
 
   // update tasks on localstorage
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    const getupdatedTasks = updateTasks(tasks, info);
+    const res = await axios.post(
+      "https://62478c20229b222a3fcdfa2c.mockapi.io/api/v1/tasks",
+      { getupdatedTasks }
+    );
+    console.log(res);
 
-    let isPresent = false;
-    let updatedTasks = tasks.map((item) => {
-      if (item.id === info.id) {
-        isPresent = true;
-        return { ...info };
-      }
-      return item;
-    });
-
-    if (!isPresent) {
-      updatedTasks = [...tasks, { ...info, id: uuidv4() }];
+    if (res.status === 200 || res.status === 201) {
+      handleTasks(getupdatedTasks);
+      toggleModal();
     }
-
-    setTasks(updatedTasks);
-    toggleModal();
   };
 
   return (
