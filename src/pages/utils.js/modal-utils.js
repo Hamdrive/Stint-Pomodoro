@@ -1,3 +1,5 @@
+
+
 // allow state to access on initialization
 export const getTaskInfo = (tasks, modal) =>
   tasks.filter((task) => task.id === modal.id);

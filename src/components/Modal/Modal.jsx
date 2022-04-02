@@ -34,7 +34,7 @@ export function Modal({ toggleModal, modal }) {
     const getupdatedTasks = updateTasks(tasks, info);
     const res = await axios.post(
       "https://62478c20229b222a3fcdfa2c.mockapi.io/api/v1/tasks",
-      { getupdatedTasks }
+      getupdatedTasks[0]
     );
 
     if (res.status === 200 || res.status === 201) {
