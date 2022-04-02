@@ -37,7 +37,7 @@ export function Tasks() {
       <div
         className={` ${
           theme ? "background__dark text__dark" : "background__light"
-        } container-height`}
+        } theme-animation container-height`}
       >
         <section className="max-width-1200 mx-auto px-md pos-rel">
           {modal.display && <Modal toggleModal={toggleModal} modal={modal} />}

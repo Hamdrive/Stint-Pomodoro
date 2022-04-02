@@ -130,6 +130,10 @@
   border-radius: var(--radius-rounded);
 }
 
+.theme-animation{
+  transition: 0.25s background-color ease-in-out;
+}
+
 @media screen and (max-width: 768px) {
   .main__home, .main__pomodoro {
     display: block;

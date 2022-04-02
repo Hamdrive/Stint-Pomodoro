@@ -15,7 +15,7 @@ export function InvalidRoute() {
       <div
         className={` ${
           theme ? "background__dark text__dark" : "background__light"
-        }  grid-container grid-1`}
+        }  grid-container grid-1 theme-animation`}
       >
         <img
           className={`${styles.splashscreen}`}

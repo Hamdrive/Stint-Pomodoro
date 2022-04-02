@@ -15,7 +15,7 @@ export function Home() {
       <div
         className={` ${
           theme ? "background__dark text__dark" : "background__light"
-        } py-md`}
+        } theme-animation py-md`}
       >
         <main className="max-width-1200 grid grid-cols-2 gap-2 grid-ver-center min-vh-85 mx-auto px-lg main__home">
           <div className="content ml-4">
