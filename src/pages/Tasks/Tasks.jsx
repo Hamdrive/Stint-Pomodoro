@@ -26,7 +26,7 @@ export function Tasks() {
 
   // changes modal state visiibility
   const toggleModal = () => {
-    setModal((prev) => ({ ...prev, display: !prev.display }));
+    setModal((prev) => ({ ...prev, id: "", display: !prev.display }));
   };
 
   // stores tasks in localstorage
