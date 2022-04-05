@@ -4,12 +4,15 @@ import "./index.css";
 import App from "./App";
 import { BrowserRouter as Router } from "react-router-dom";
 import { ThemeProvider } from "./context/theme-context";
+import { TaskProvider } from "./context/tasks-context";
 
 ReactDOM.render(
   <React.StrictMode>
     <Router>
       <ThemeProvider>
-        <App />
+        <TaskProvider>
+          <App />
+        </TaskProvider>
       </ThemeProvider>
     </Router>
   </React.StrictMode>,
