@@ -91,7 +91,7 @@ export function Pomodoro() {
       <section
         className={`${
           theme ? "background__dark text__dark" : "background__light"
-        } overflow-y`}
+        }`}
       >
         <div
           className={` ${styles.pomodoro__section} grid-container grid-2 gap-2 container-height round-top-1 max-width-1200 px-md mx-auto main__pomodoro`}
