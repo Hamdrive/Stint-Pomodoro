@@ -100,7 +100,7 @@ export function Pomodoro() {
             <div className={`${styles.pomodoro__task} round-top-1 px-md `}>
               <div className="grid-container grid-2">
                 <SecondaryBtn
-                  onClick={() => navigate("/tasks")}
+                  onClick={() => navigate(-1)}
                   btnStyles={"span-1 word-break"}
                 >
                   <i className="fas fa-arrow-left"></i>

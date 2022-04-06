@@ -27,7 +27,7 @@ export function Modal({
     descCount: info.desc.length,
   });
 
-  const { tasks, taskDispatch } = useTasks();
+  const { taskState, taskDispatch } = useTasks();
 
   // update information
   const handleChange = (e) => {
@@ -41,7 +41,7 @@ export function Modal({
     e.preventDefault();
 
     if (editMode) {
-      let updatedTasks = tasks.map((item) => {
+      let updatedTasks = taskState.tasks.map((item) => {
         if (item.id === info.id) {
           return { ...info };
         }

@@ -11,7 +11,7 @@ export function Tasks() {
   const [showModal, setshowModal] = useState(false);
 
   const { theme } = useTheme();
-  const { tasks } = useTasks();
+  const { taskState } = useTasks();
 
   // changes modal state visiibility
   const toggleModal = () => {
@@ -31,11 +31,11 @@ export function Tasks() {
           {showModal && <Modal toggleModal={toggleModal} />}
           <div className="intro py-md">
             <h1 className="greeting txt-semibold">Welcome back, User!</h1>
-            {tasks.length === 0 ? (
+            {taskState.tasks.length === 0 ? (
               <h2 className="message txt-regular">No tasks! Great work!</h2>
             ) : (
               <h2 className="message txt-regular">
-                You have {tasks.length} task(s) today! Go get em!
+                You have {taskState.tasks.length} task(s) today! Go get em!
               </h2>
             )}
           </div>
@@ -52,7 +52,7 @@ export function Tasks() {
               </button>
             </div>
             <div className="task-list">
-              {tasks.map((task) => (
+              {taskState.tasks.map((task) => (
                 <TaskCard key={task.id} task={task} toggleModal={toggleModal} />
               ))}
             </div>
