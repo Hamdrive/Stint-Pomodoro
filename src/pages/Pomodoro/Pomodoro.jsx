@@ -5,7 +5,7 @@ import styles from "./Pomodoro.module.css";
 import "react-circular-progressbar/dist/styles.css";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useTheme } from "../../context/theme-context";
-import Helmet from "react-helmet";
+import { usePageTitle } from "../../utils";
 
 export function Pomodoro() {
   // get props passed with Link
@@ -79,19 +79,19 @@ export function Pomodoro() {
     secondsRef.current = focusMinutes * 60;
   }, []);
 
+  //update title
+  usePageTitle(
+    pomodoroMode === "focus"
+      ? `${minutesLeft} : ${secondsLeft} 👨‍💻 | Pomodoro`
+      : `${minutesLeft} : ${secondsLeft} ☕ | Pomodoro`
+  );
+
   return (
     <>
-      <Helmet>
-        <title>
-          {pomodoroMode === "focus"
-            ? `${minutesLeft} : ${secondsLeft} 👨‍💻 | Pomodoro`
-            : `${minutesLeft} : ${secondsLeft} ☕ | Pomodoro`}
-        </title>
-      </Helmet>
       <section
         className={`${
           theme ? "background__dark text__dark" : "background__light"
-        } overflow-y`}
+        }`}
       >
         <div
           className={` ${styles.pomodoro__section} grid-container grid-2 gap-2 container-height round-top-1 max-width-1200 px-md mx-auto main__pomodoro`}
@@ -100,10 +100,10 @@ export function Pomodoro() {
             <div className={`${styles.pomodoro__task} round-top-1 px-md `}>
               <div className="grid-container grid-2">
                 <SecondaryBtn
-                  onClick={() => navigate("/tasks")}
+                  onClick={() => navigate(-1)}
                   btnStyles={"span-1 word-break"}
                 >
-                  <i class="fas fa-arrow-left"></i>
+                  <i className="fas fa-arrow-left"></i>
                   Return to Tasks
                 </SecondaryBtn>
               </div>

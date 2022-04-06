@@ -6,10 +6,12 @@ export function SecondaryBtn({
   id,
   onClick,
   children,
+  type= "button",
   btnStyles = "",
 }) {
   return (
     <button
+    type={type}
       onClick={onClick}
       id={id}
       disabled={disabled}
