@@ -3,23 +3,31 @@ import styles from "./Modal.module.css";
 import { v4 as uuidv4 } from "uuid";
 import { PrimaryGhostBtn } from "../PrimaryGhostButton/PrimaryGhostBtn";
 import { SecondaryBtn } from "../Secondary Button/SecondaryBtn";
+import { useTasks } from "../../context/tasks-context";
 
-// allow state to access on initialization
-const getInfo = (tasks, modal) => tasks.filter((task) => task.id === modal.id);
-
-export function Modal({ toggleModal, setTasks, tasks, modal }) {
-  const [info, setInfo] = useState(
-    getInfo(tasks, modal)[0] || {
-      title: "",
-      desc: "",
-      focusDuration: "60",
-      breakDuration: "30",
-    }
-  );
+export function Modal({
+  id,
+  title = "",
+  desc = "",
+  focusDuration = "60",
+  breakDuration = "30",
+  editMode,
+  seteditMode,
+  toggleModal,
+}) {
+  const [info, setInfo] = useState({
+    id,
+    title,
+    desc,
+    focusDuration,
+    breakDuration,
+  });
   const [count, setCount] = useState({
     titleCount: info.title.length,
     descCount: info.desc.length,
   });
+
+  const { tasks, taskDispatch } = useTasks();
 
   // update information
   const handleChange = (e) => {
@@ -28,30 +36,32 @@ export function Modal({ toggleModal, setTasks, tasks, modal }) {
     setCount((prev) => ({ ...prev, [`${name}Count`]: value.length }));
   };
 
-  // update tasks on localstorage
+  // update tasks with reducer
   const handleSubmit = (e) => {
     e.preventDefault();
+    e.stopPropogation();
 
-    let isPresent = false;
-    let updatedTasks = tasks.map((item) => {
-      if (item.id === info.id) {
-        isPresent = true;
-        return { ...info };
-      }
-      return item;
-    });
-
-    if (!isPresent) {
-      updatedTasks = [...tasks, { ...info, id: uuidv4() }];
+    if (editMode) {
+      let updatedTasks = tasks.map((item) => {
+        if (item.id === info.id) {
+          return { ...info };
+        }
+        return item;
+      });
+      taskDispatch({ type: "UPDATE_TASK", payload: updatedTasks });
+      seteditMode(false);
+    } else {
+      taskDispatch({ type: "ADD_TASK", payload: { ...info, id: uuidv4() } });
+      toggleModal();
     }
-
-    setTasks(updatedTasks);
-    toggleModal();
   };
 
   return (
     <div className={`text__light pos-rel`}>
-      <div onClick={toggleModal} className={`${styles.overlay}`}></div>
+      <div
+        onClick={() => (editMode ? seteditMode(false) : toggleModal())}
+        className={`${styles.overlay}`}
+      ></div>
       <section className={`${styles.modal} ${styles.modal__container}`}>
         <h2>Task</h2>
         <form className="form" noValidate>
@@ -168,7 +178,11 @@ export function Modal({ toggleModal, setTasks, tasks, modal }) {
             </datalist>
           </div>
           <footer className={`${styles.modal__footer}`}>
-            <SecondaryBtn onClick={toggleModal} id={"cancel"}>
+            <SecondaryBtn
+              onClick={() => (editMode ? seteditMode(false) : toggleModal())}
+              id={"cancel"}
+              btnStyles={"outline-primary word-break"}
+            >
               Cancel
             </SecondaryBtn>
             <PrimaryGhostBtn
@@ -181,13 +195,14 @@ export function Modal({ toggleModal, setTasks, tasks, modal }) {
               }
               onClick={(e) => handleSubmit(e)}
               id={"add"}
+              btnStyles={"solid-primary word-break"}
             >
-              {modal.id ? "Update" : "Add"}
+              {editMode ? "Update" : "Add"} Task
             </PrimaryGhostBtn>
           </footer>
         </form>
         <div
-          onClick={toggleModal}
+          onClick={() => (editMode ? seteditMode(false) : toggleModal())}
           id="cancel"
           className={`fas fa-times ${styles.close} pointer`}
         ></div>
