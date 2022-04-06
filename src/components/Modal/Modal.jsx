@@ -39,7 +39,6 @@ export function Modal({
   // update tasks with reducer
   const handleSubmit = (e) => {
     e.preventDefault();
-    e.stopPropogation();
 
     if (editMode) {
       let updatedTasks = tasks.map((item) => {

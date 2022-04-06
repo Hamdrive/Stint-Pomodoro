@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import Helmet from "react-helmet";
 import { Modal } from "../../components";
 import { useTasks } from "../../context/tasks-context";
 import { useTheme } from "../../context/theme-context";
+import { usePageTitle } from "../../utils";
 import { TaskCard } from "./TaskCard";
 import styles from "./Tasks.module.css";
 
@@ -18,11 +18,10 @@ export function Tasks() {
     setshowModal((prev) => !prev);
   };
 
+  usePageTitle("Tasks | Stint Pomodoro");
+
   return (
     <main>
-      <Helmet>
-        <title>Tasks | Stint Pomodoro</title>
-      </Helmet>
       <div
         className={` ${
           theme ? "background__dark text__dark" : "background__light"

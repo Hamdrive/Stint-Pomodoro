@@ -5,7 +5,7 @@ import {
   useReducer,
   useState,
 } from "react";
-import { taskReducer } from "../utils/taskReducer";
+import { taskReducer } from "../utils";
 
 const tasksData = { tasks: [] };
 
