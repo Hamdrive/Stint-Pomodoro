@@ -26,7 +26,7 @@ const TaskProvider = ({ children }) => {
   }, [taskState]);
 
   return (
-    <TaskContext.Provider value={{ taskState, taskDispatch, tasks, setTasks }}>
+    <TaskContext.Provider value={{ taskDispatch, tasks }}>
       {children}
     </TaskContext.Provider>
   );
