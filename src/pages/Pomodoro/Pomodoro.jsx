@@ -103,7 +103,7 @@ export function Pomodoro() {
                   onClick={() => navigate("/tasks")}
                   btnStyles={"span-1 word-break"}
                 >
-                  <i class="fas fa-arrow-left"></i>
+                  <i className="fas fa-arrow-left"></i>
                   Return to Tasks
                 </SecondaryBtn>
               </div>
