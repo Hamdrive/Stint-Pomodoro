@@ -33,8 +33,8 @@ export function TaskCard({ task }) {
         className="flex-grow-1"
       >
         <p className={` ${styles.task__title} w-100 txt-md `}>{title}</p>
-        <p className={` ${styles.task__title} w-100 txt-md `}>
-          {focusDuration} : {breakDuration}
+        <p className={` ${styles.task__title} w-100 txt-reg `}>
+          Focus duration: {focusDuration} mins,  Break duration: {breakDuration} mins
         </p>
       </Link>
       <div className={`${styles.task__controls}`}>
