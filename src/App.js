@@ -9,7 +9,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/tasks" element={<Tasks />} />
-        <Route path="/pomodoro" element={<Pomodoro />} />
+        <Route path="/pomodoro/:id" element={<Pomodoro />} />
         <Route path="*" element={<InvalidRoute />} />
       </Routes>
     </div>
