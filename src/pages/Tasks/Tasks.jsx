@@ -35,7 +35,7 @@ export function Tasks() {
           theme ? "background__dark text__dark" : "background__light"
         } container-height`}
       >
-        <section className="max-width-1200 mx-auto px-md pos-rel">
+        <section className="max-width-1200 mx-auto px-md">
           {showModal && <Modal toggleModal={toggleModal} />}
           <div className="intro py-md">
             <h1 className="greeting txt-semibold">

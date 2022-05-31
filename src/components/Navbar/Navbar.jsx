@@ -42,7 +42,7 @@ export function Navbar() {
                       theme
                         ? styles.badge__icon__dark
                         : styles.badge__icon__light
-                    } pointer txt-md px-sm`}
+                    } pointer txt-lg px-sm`}
                   ></div>
                 </div>
               ) : (
@@ -53,7 +53,7 @@ export function Navbar() {
                         theme
                           ? styles.badge__icon__dark
                           : styles.badge__icon__light
-                      } pointer txt-md px-sm`}
+                      } pointer txt-lg px-sm`}
                     ></div>
                   </div>
                 </Link>
@@ -64,7 +64,7 @@ export function Navbar() {
                 <div
                   className={`fab fa-github ${
                     theme ? styles.badge__icon__dark : styles.badge__icon__light
-                  } pointer txt-md px-sm`}
+                  } pointer txt-lg px-sm`}
                 ></div>
               </a>
             </li>
@@ -72,11 +72,11 @@ export function Navbar() {
               <div onClick={() => updateTheme()} className="badge">
                 {theme ? (
                   <div
-                    className={`fas fa-sun ${styles.badge__icon__dark} pointer txt-md px-sm`}
+                    className={`fas fa-sun ${styles.badge__icon__dark} pointer txt-lg px-sm`}
                   ></div>
                 ) : (
                   <div
-                    className={`fas fa-moon ${styles.badge__icon__light} pointer txt-md px-sm`}
+                    className={`fas fa-moon ${styles.badge__icon__light} pointer txt-lg px-sm`}
                   ></div>
                 )}
               </div>
