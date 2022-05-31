@@ -7,7 +7,7 @@ import {
   signOut,
   updateProfile,
 } from "firebase/auth";
-import { auth } from "./firebase-config";
+import { auth } from "../firebase-config";
 import {
   addDoc,
   collection,
@@ -15,7 +15,7 @@ import {
   doc,
   updateDoc,
 } from "firebase/firestore";
-import { db } from "./firebase-config";
+import { db } from "../firebase-config";
 
 const AuthContext = createContext();
 const useAuth = () => useContext(AuthContext);
@@ -33,12 +33,12 @@ const authReducer = (state, { type, payload }) => {
   }
 };
 
-const registerUser = async ({ email, password, firstname, lastname }) => {
+const registerUser = async ({ email, password, name }) => {
   try {
     await setPersistence(auth, browserLocalPersistence);
     const res = await createUserWithEmailAndPassword(auth, email, password);
     await updateProfile(res.user, {
-      displayName: firstname + " " + lastname,
+      displayName: name,
     });
   } catch (error) {
     throw Error(error);
@@ -73,7 +73,7 @@ const setTask = async (uid, data) => {
 
 const updateTask = async (uid, docId, data) => {
   try {
-    const docRef = doc(db, "Users", uid, "tasks", docId);
+    const docRef = doc(db, "Users", uid, "tasks");
     await updateDoc(docRef, data);
   } catch (e) {
     throw new Error(e);
@@ -82,7 +82,7 @@ const updateTask = async (uid, docId, data) => {
 
 const deleteTask = async (uid, docId) => {
   try {
-    const docRef = doc(db, "Users", uid, "tasks", docId);
+    const docRef = doc(db, "Users", uid, "tasks");
     await deleteDoc(docRef);
   } catch (e) {
     throw new Error(e);
