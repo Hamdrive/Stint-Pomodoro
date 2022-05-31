@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Modal } from "../../components";
+import { useAuth } from "../../context/auth-context";
 import { useTasks } from "../../context/tasks-context";
 import { useTheme } from "../../context/theme-context";
 import { usePageTitle } from "../../utils";
@@ -11,7 +12,10 @@ export function Tasks() {
   const [showModal, setshowModal] = useState(false);
 
   const { theme } = useTheme();
-  const { taskState } = useTasks();
+  const { taskState, setTask } = useTasks();
+  const {
+    authState: { userData },
+  } = useAuth();
 
   // changes modal state visiibility
   const toggleModal = () => {
@@ -19,6 +23,10 @@ export function Tasks() {
   };
 
   usePageTitle("Tasks | Stint Pomodoro");
+
+  useEffect(() => {
+    setTask(taskState.tasks);
+  }, [taskState.tasks]);
 
   return (
     <main>
@@ -30,7 +38,9 @@ export function Tasks() {
         <section className="max-width-1200 mx-auto px-md pos-rel">
           {showModal && <Modal toggleModal={toggleModal} />}
           <div className="intro py-md">
-            <h1 className="greeting txt-semibold">Welcome back, User!</h1>
+            <h1 className="greeting txt-semibold">
+              Welcome back, {userData?.displayName}
+            </h1>
             {taskState.tasks.length === 0 ? (
               <h2 className="message txt-regular">No tasks! Great work!</h2>
             ) : (
