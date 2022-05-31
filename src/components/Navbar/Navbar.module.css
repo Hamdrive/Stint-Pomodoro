@@ -24,11 +24,7 @@
     display: inline-block;
 }
 
-.nav__item:first-child{
-    margin: 0 var(--size-9);
-}
-
-.nav__item:nth-child(n + 2){
+.nav__item:first-child, .nav__item:nth-child(n + 2){
     margin: 0 var(--size-13);
 }
 
@@ -47,6 +43,10 @@
 @media screen and (max-width: 768px) {
     .nav__list{
         display: none;
+    }
+
+    .nav__item:first-child, .nav__item:nth-child(n + 2){
+        margin: 0 var(--size-9);
     }
     
 }
