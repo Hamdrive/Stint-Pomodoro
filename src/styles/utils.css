@@ -1,0 +1,180 @@
+.header {
+  z-index: 10;
+}
+
+.btn:hover {
+  transform: translate(0);
+}
+
+.btn-def {
+  background-color: hsl(var(--primary-color));
+  color: var(--color-black);
+  transition: 0.15s background-color;
+}
+
+.btn-def:hover {
+  background-color: hsl(var(--primary-light-color));
+}
+
+.btn-sec {
+  color: var(--complementary-color);
+  background-color: hsla(var(--complementary-color), 01);
+  transition: 0.15s background-color;
+}
+
+.marker {
+  background-color: hsl(var(--complementary-light-color));
+  padding: 0 var(--size-3);
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.min-h-100 {
+  min-height: 100vh;
+}
+
+.round-top-1 {
+  border-radius: var(--size-11) var(--size-11) 0 0;
+}
+
+.overflow-y {
+  overflow-y: scroll;
+}
+
+.container-height {
+  min-height: calc(100vh - 80px);
+}
+
+.tasks-height {
+  min-height: calc(100vh - 80px - 192px);
+}
+
+.form-input {
+  margin: 0;
+}
+
+#input,
+#textarea {
+  font-family: var(--primary-font-family);
+}
+
+.outline-primary {
+  outline: var(--size-2) solid hsl(var(--primary-color));
+  background-color: hsl(var(--primary-light-color), 0.5);
+}
+
+.solid-primary {
+  background-color: hsl(var(--primary-color), 0.7);
+}
+
+.span-1 {
+  grid-column: span 1;
+}
+
+.span-2 {
+  grid-column: span 2;
+}
+
+.count-success {
+  color: hsl(var(--green-500));
+}
+
+.count-fail {
+  color: hsl(var(--red-800));
+}
+
+.background__light {
+  background-color: hsla(var(--primary-light-color), 0.2);
+}
+
+.background__dark {
+  background-color: hsl(var(--darktheme-primary-color));
+}
+
+.text__dark {
+  color: var(--color-white);
+}
+
+.text__light {
+  color: var(--color-black);
+}
+
+.mobile-navbar {
+  display: none;
+}
+
+.slider {
+  accent-color: hsl(var(--primary-dark-color));
+}
+
+.word-break {
+  word-break: break-word;
+  white-space: normal;
+}
+
+.section__signup {
+  height: calc(100vh - 5rem);
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.window__signup {
+  height: 32.5rem;
+  width: 25rem;
+  border: 2px solid hsl(var(--complementary-color));
+  border-radius: var(--radius-large);
+  padding: var(--size-9);
+}
+
+.input-toggle input{
+    padding-right: var(--size-21);
+}
+
+.input-toggle .toggle-vis {
+  right: 0;
+  top: 50%;
+  transform: translate(-25%, -95%);
+  color: var(--color-black);
+  padding: var(--size-5);
+  border-radius: 50%;
+}
+
+.input-toggle .toggle-vis:hover {
+  background-color: hsl(var(--complementary-light-color));
+}
+
+.btn-outline{
+    outline: 2px solid hsl(var(--primary-color));
+    background-color: transparent;
+}
+
+.white{
+    color: var(--color-white);
+}
+
+.black{
+    color: var(--color-black);
+}
+
+.input-error {
+  color: red;
+}
+
+.div__login {
+  margin-top: 4rem;
+}
+
+@media screen and (max-width: 768px) {
+  .main__home,
+  .main__pomodoro {
+    display: block;
+  }
+
+  .main__pomodoro section:last-child {
+    margin-top: var(--size-13);
+  }
+}
