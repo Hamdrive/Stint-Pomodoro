@@ -1,96 +1,97 @@
-import { createContext, useContext, useReducer } from "react";
+import { createContext, useContext, useReducer, useEffect } from "react";
 import {
   browserLocalPersistence,
   createUserWithEmailAndPassword,
+  onAuthStateChanged,
   setPersistence,
   signInWithEmailAndPassword,
   signOut,
   updateProfile,
 } from "firebase/auth";
-import { auth } from "../firebase-config";
-import {
-  addDoc,
-  collection,
-  deleteDoc,
-  doc,
-  updateDoc,
-} from "firebase/firestore";
-import { db } from "../firebase-config";
+import { auth, db } from "../firebase-config";
+import { doc, setDoc } from "firebase/firestore";
+import { useNavigate } from "react-router-dom";
 
 const AuthContext = createContext();
 const useAuth = () => useContext(AuthContext);
 
 const initialState = {
   isLoggedIn: localStorage.getItem("loggedIn") ?? false,
+  userData: JSON.parse(localStorage.getItem("userData")) ?? null,
 };
 
 const authReducer = (state, { type, payload }) => {
   switch (type) {
     case "LOGIN":
+    case "LOGOUT":
       return { ...state, ...payload };
     default:
       return state;
   }
 };
 
-const registerUser = async ({ email, password, name }) => {
-  try {
-    await setPersistence(auth, browserLocalPersistence);
-    const res = await createUserWithEmailAndPassword(auth, email, password);
-    await updateProfile(res.user, {
-      displayName: name,
-    });
-  } catch (error) {
-    throw Error(error);
-  }
-};
-
-const signInUser = async ({ email, password }) => {
-  try {
-    await setPersistence(auth, browserLocalPersistence);
-    await signInWithEmailAndPassword(auth, email, password);
-  } catch (error) {
-    throw Error(error);
-  }
-};
-
-const signOutUser = async () => {
-  try {
-    await signOut(auth);
-  } catch (error) {
-    throw Error(error);
-  }
-};
-
-const setTask = async (uid, data) => {
-  try {
-    const docRef = collection(db, "Users", uid, "tasks");
-    await addDoc(docRef, data);
-  } catch (e) {
-    throw new Error(e);
-  }
-};
-
-const updateTask = async (uid, docId, data) => {
-  try {
-    const docRef = doc(db, "Users", uid, "tasks");
-    await updateDoc(docRef, data);
-  } catch (e) {
-    throw new Error(e);
-  }
-};
-
-const deleteTask = async (uid, docId) => {
-  try {
-    const docRef = doc(db, "Users", uid, "tasks");
-    await deleteDoc(docRef);
-  } catch (e) {
-    throw new Error(e);
-  }
-};
-
 const AuthProvider = ({ children }) => {
   const [authState, authDispatch] = useReducer(authReducer, initialState);
+
+  const navigate = useNavigate();
+
+  const registerUser = async (name, email, password) => {
+    console.log(auth, email, password, name);
+    try {
+      await setPersistence(auth, browserLocalPersistence);
+      const res = await createUserWithEmailAndPassword(auth, email, password);
+      await updateProfile(res?.user, {
+        displayName: name,
+      });
+      await setDoc(doc(db, "Users", res?.user?.uid), {
+        name: name,
+        tasks: [],
+      });
+      localStorage.setItem("userData", JSON.stringify(res?.user));
+    } catch (error) {
+      throw Error(error);
+    }
+  };
+
+  const signInUser = async (email, password) => {
+    try {
+      await setPersistence(auth, browserLocalPersistence);
+      await signInWithEmailAndPassword(auth, email, password);
+    } catch (error) {
+      throw Error(error);
+    }
+  };
+
+  const signOutUser = async () => {
+    try {
+      await signOut(auth);
+      navigate("/");
+    } catch (error) {
+      throw Error(error);
+    }
+  };
+
+  useEffect(() => {
+    const unsub = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        console.log(user);
+        localStorage.setItem("loggedIn", true);
+        localStorage.setItem("userData", JSON.stringify(user));
+        authDispatch({
+          type: "LOGIN",
+          payload: { isLoggedIn: true, user },
+        });
+      } else {
+        localStorage.setItem("loggedIn", false);
+        authDispatch({
+          type: "LOGOUT",
+          payload: { isLoggedIn: false, user: null },
+        });
+      }
+    });
+
+    return () => unsub;
+  }, [authState.isLoggedIn]);
 
   return (
     <AuthContext.Provider
@@ -100,9 +101,6 @@ const AuthProvider = ({ children }) => {
         registerUser,
         signInUser,
         signOutUser,
-        setTask,
-        updateTask,
-        deleteTask,
       }}
     >
       {children}
