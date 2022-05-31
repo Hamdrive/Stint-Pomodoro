@@ -36,7 +36,6 @@ const AuthProvider = ({ children }) => {
   const navigate = useNavigate();
 
   const registerUser = async (name, email, password) => {
-    console.log(auth, email, password, name);
     try {
       await setPersistence(auth, browserLocalPersistence);
       const res = await createUserWithEmailAndPassword(auth, email, password);
@@ -74,7 +73,6 @@ const AuthProvider = ({ children }) => {
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, (user) => {
       if (user) {
-        console.log(user);
         localStorage.setItem("loggedIn", true);
         localStorage.setItem("userData", JSON.stringify(user));
         authDispatch({

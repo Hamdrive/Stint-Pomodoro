@@ -29,7 +29,7 @@ export function Home() {
               everytime!
             </p>
             <Link to="/tasks" className="btn btn-def btn-lg">
-              checkout tasks
+              Get Started
             </Link>
           </div>
           <div className="hero">

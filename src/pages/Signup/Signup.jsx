@@ -11,8 +11,7 @@ export const Signup = () => {
 
   const { theme } = useTheme();
 
-    usePageTitle("Signup | Stint Pomodoro");
-
+  usePageTitle("Signup | Stint Pomodoro");
 
   const {
     inputState,
@@ -25,14 +24,14 @@ export const Signup = () => {
   const { name, email, password } = inputState;
   const { emailError, passwordError, nameError } = errorState;
 
-  const { signUpUser } = useAuth();
+  const { registerUser } = useAuth();
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (validateSignup()) {
       errorDispatch({ type: "CLEAR_ERRORS" });
       inputDispatch({ type: "CLEAR_INPUTS" });
-      signUpUser(name, email, password);
+      registerUser(name, email, password);
     }
   };
 

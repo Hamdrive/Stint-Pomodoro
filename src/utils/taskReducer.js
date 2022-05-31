@@ -16,7 +16,7 @@ export function taskReducer(state, action) {
           },
         ],
       };
-
+    case "FETCH_TASKS":
     case "UPDATE_TASK":
       return { ...state, tasks: [...payload] };
 
