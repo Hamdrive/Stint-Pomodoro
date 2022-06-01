@@ -1,4 +1,4 @@
-import { createContext, useContext, useReducer, useEffect } from "react";
+import { createContext, useContext, useReducer, useEffect, useState } from "react";
 import {
   browserLocalPersistence,
   createUserWithEmailAndPassword,
@@ -33,11 +33,13 @@ const authReducer = (state, { type, payload }) => {
 
 const AuthProvider = ({ children }) => {
   const [authState, authDispatch] = useReducer(authReducer, initialState);
+  const [loading, setLoading] = useState(false)
 
   const navigate = useNavigate();
 
   const registerUser = async (name, email, password) => {
     try {
+      setLoading(true)
       await setPersistence(auth, browserLocalPersistence);
       const res = await createUserWithEmailAndPassword(auth, email, password);
       await updateProfile(res?.user, {
@@ -60,11 +62,14 @@ const AuthProvider = ({ children }) => {
           message: "Something went wrong. Please try again 😟",
         });
       throw Error(error);
+    } finally {
+      setLoading(false)
     }
   };
 
   const signInUser = async (email, password) => {
     try {
+      setLoading(true)
       await setPersistence(auth, browserLocalPersistence);
       await signInWithEmailAndPassword(auth, email, password);
     } catch (error) {
@@ -84,11 +89,14 @@ const AuthProvider = ({ children }) => {
           message: "Unable to login. Please try again 😟",
         });
       throw Error(error);
+    } finally {
+      setLoading(false)
     }
   };
 
   const signOutUser = async () => {
     try {
+      setLoading(true)
       await signOut(auth);
       navigate("/");
     } catch (error) {
@@ -97,6 +105,8 @@ const AuthProvider = ({ children }) => {
         message: "We were not able to log you out. Please try again 😟",
       });
       throw Error(error);
+    } finally {
+      setLoading(false)
     }
   };
 
@@ -130,6 +140,7 @@ const AuthProvider = ({ children }) => {
         registerUser,
         signInUser,
         signOutUser,
+        loading
       }}
     >
       {children}
