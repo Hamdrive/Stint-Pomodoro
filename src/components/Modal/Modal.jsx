@@ -28,7 +28,7 @@ export function Modal({
     descCount: info.desc.length,
   });
 
-  const { taskState, taskDispatch } = useTasks();
+  const { taskState, taskDispatch, setTask, updateTask } = useTasks();
 
   // update information
   const handleChange = (e) => {
@@ -49,9 +49,12 @@ export function Modal({
         return item;
       });
       taskDispatch({ type: "UPDATE_TASK", payload: updatedTasks });
+      updateTask(updatedTasks);
       seteditMode(false);
     } else {
-      taskDispatch({ type: "ADD_TASK", payload: { ...info, id: uuidv4() } });
+      const newTask = { ...info, id: uuidv4() };
+      setTask(newTask);
+      taskDispatch({ type: "ADD_TASK", payload: newTask });
       toggleModal();
     }
   };

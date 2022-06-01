@@ -7,7 +7,7 @@ import styles from "./Tasks.module.css";
 export function TaskCard({ task }) {
   const [editMode, seteditMode] = useState(false);
 
-  const { taskDispatch } = useTasks();
+  const { taskDispatch, taskState, deleteTask } = useTasks();
   const { id, title, desc, focusDuration, breakDuration } = task;
 
   const handleTaskEdit = () => {
@@ -15,7 +15,9 @@ export function TaskCard({ task }) {
   };
 
   const handleTaskDelete = (id) => {
-    taskDispatch({ type: "DELETE_TASK", payload: { id: id } });
+    const updatedTasks = taskState.tasks.filter((task) => task.id !== id);
+    deleteTask(updatedTasks);
+    taskDispatch({ type: "DELETE_TASK", payload: updatedTasks });
   };
 
   return (
