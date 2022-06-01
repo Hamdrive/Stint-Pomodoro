@@ -19,7 +19,7 @@ export function TaskCard({ task }) {
   };
 
   return (
-    <div key={task.id} className={`${styles.task} my-1 dis-flex`}>
+    <div key={task.id} className={`${styles.task} my-1`}>
       {editMode && (
         <Modal
           id={id}

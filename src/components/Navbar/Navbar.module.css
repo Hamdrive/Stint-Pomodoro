@@ -38,6 +38,7 @@
 
 .flag__rotate {
     transform: rotate(15deg);
+    margin-right: var(--size-9);
 }
 
 @media screen and (max-width: 768px) {

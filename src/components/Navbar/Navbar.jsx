@@ -28,7 +28,7 @@ export function Navbar() {
             <div
               className={`fas fa-flag-checkered fa-1x ${styles.flag__rotate}`}
             ></div>
-            &nbsp; Stint
+            Stint
           </div>
         </Link>
 
