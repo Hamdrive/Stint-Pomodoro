@@ -26,7 +26,7 @@ export const useValidation = () => {
     if (!passwordRegex.test(inputState.password)) {
       errorDispatch({
         type: "PASSWORD_ERROR",
-        payload: "Password does not meet requirements",
+        payload: "Password length should be 6 & alphanumeric",
       });
       inputValid = false;
     }
@@ -53,7 +53,7 @@ export const useValidation = () => {
     if (!passwordRegex.test(inputState.password)) {
       errorDispatch({
         type: "PASSWORD_ERROR",
-        payload: "Password does not meet requirements",
+        payload: "Password length should be 6 & alphanumeric",
       });
       inputValid = false;
     }
