@@ -16,7 +16,7 @@ export function taskReducer(state, action) {
           },
         ],
       };
-
+    case "FETCH_TASKS":
     case "UPDATE_TASK":
       return { ...state, tasks: [...payload] };
 
@@ -25,6 +25,9 @@ export function taskReducer(state, action) {
         ...state,
         tasks: state.tasks.filter((task) => task.id !== payload.id),
       };
+
+    case "CLEAR_TASKS":
+      return { ...state, tasks: [] };
 
     default:
       return state;

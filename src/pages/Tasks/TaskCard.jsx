@@ -14,8 +14,12 @@ export function TaskCard({ task }) {
     seteditMode((edit) => !edit);
   };
 
+  const handleTaskDelete = (id) => {
+    taskDispatch({ type: "DELETE_TASK", payload: { id: id } });
+  };
+
   return (
-    <div key={task.id} className={`${styles.task} my-1 dis-flex`}>
+    <div key={task.id} className={`${styles.task} my-1`}>
       {editMode && (
         <Modal
           id={id}
@@ -28,13 +32,14 @@ export function TaskCard({ task }) {
         />
       )}
       <Link
-        to="/pomodoro"
+        to={`/pomodoro/{id}`}
         state={{ pomodoroTask: task }}
         className="flex-grow-1"
       >
         <p className={` ${styles.task__title} w-100 txt-md `}>{title}</p>
         <p className={` ${styles.task__title} w-100 txt-reg `}>
-          Focus duration: {focusDuration} mins,  Break duration: {breakDuration} mins
+          Focus duration: {focusDuration} mins, Break duration: {breakDuration}{" "}
+          mins
         </p>
       </Link>
       <div className={`${styles.task__controls}`}>
@@ -43,9 +48,7 @@ export function TaskCard({ task }) {
           className={`fas fa-edit fa-2x pointer ${styles.task__icon} `}
         ></div>
         <div
-          onClick={() =>
-            taskDispatch({ type: "DELETE_TASK", payload: { id: task.id } })
-          }
+          onClick={() => handleTaskDelete(task.id)}
           className={`fas fa-trash fa-2x pointer ${styles.task__icon} `}
         ></div>
       </div>

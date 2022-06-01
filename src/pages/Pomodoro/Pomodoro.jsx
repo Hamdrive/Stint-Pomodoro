@@ -20,6 +20,7 @@ export function Pomodoro() {
   // set initial state
   const [pomodoroMode, setpomodoroMode] = useState("focus");
   const [seconds, setSeconds] = useState(0);
+  const [disabled, setDisabled] = useState("pause")
 
   //set refs using useRef hook
   const percentageRef = useRef(100);
@@ -61,11 +62,13 @@ export function Pomodoro() {
   // handle pause/restart count
   const handleStopInterval = () => {
     clearInterval(intervalRef.current);
+    setDisabled("pause")
   };
 
   // handle start count
   const handleStartInterval = () => {
     clearInterval(intervalRef.current);
+    setDisabled("start")
 
     intervalRef.current = setInterval(() => {
       if (secondsRef.current === 0) return switchPomodoroMode();
@@ -131,6 +134,7 @@ export function Pomodoro() {
                   onClick={() => handleStartInterval()}
                   id={"start-btn"}
                   btnStyles={"solid-primary word-break"}
+                  disabled={disabled === "start"}
                 >
                   <i className="fas fa-play"></i>
                   Start
@@ -139,6 +143,7 @@ export function Pomodoro() {
                   onClick={() => handleStopInterval()}
                   id={"pause-btn"}
                   btnStyles={"outline-primary word-break"}
+                  disabled={disabled === "pause"}
                 >
                   <i className="fas fa-pause"></i>
                   Pause

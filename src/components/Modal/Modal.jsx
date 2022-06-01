@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import reactDom from "react-dom";
 import styles from "./Modal.module.css";
 import { v4 as uuidv4 } from "uuid";
 import { PrimaryGhostBtn } from "../PrimaryGhostButton/PrimaryGhostBtn";
@@ -55,8 +56,8 @@ export function Modal({
     }
   };
 
-  return (
-    <div className={`text__light pos-rel`}>
+  return reactDom.createPortal(
+    <div className={`text__light`}>
       <div
         onClick={() => (editMode ? seteditMode(false) : toggleModal())}
         className={`${styles.overlay}`}
@@ -206,6 +207,7 @@ export function Modal({
           className={`fas fa-times ${styles.close} pointer`}
         ></div>
       </section>
-    </div>
+    </div>,
+    document.getElementById("modal")
   );
 }
