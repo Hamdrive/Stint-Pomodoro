@@ -11,6 +11,7 @@ import {
 import { auth, db } from "../firebase-config";
 import { doc, setDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
+import { Toast } from "../components";
 
 const AuthContext = createContext();
 const useAuth = () => useContext(AuthContext);
@@ -48,6 +49,16 @@ const AuthProvider = ({ children }) => {
       });
       localStorage.setItem("userData", JSON.stringify(res?.user));
     } catch (error) {
+      if (error.code === "auth/email-already-in-use")
+        Toast({
+          type: "error",
+          message: "Uh Oh! Looks like that user already exists 😟",
+        });
+      else
+        Toast({
+          type: "error",
+          message: "Something went wrong. Please try again 😟",
+        });
       throw Error(error);
     }
   };
@@ -57,6 +68,21 @@ const AuthProvider = ({ children }) => {
       await setPersistence(auth, browserLocalPersistence);
       await signInWithEmailAndPassword(auth, email, password);
     } catch (error) {
+      if (error.code === "auth/user-not-found")
+        Toast({
+          type: "error",
+          message: "That email does not exist to us. Try again 😟",
+        });
+      else if (error.code === "auth/wrong-password")
+        Toast({
+          type: "error",
+          message: "Invalid password. Please try again 😟",
+        });
+      else
+        Toast({
+          type: "error",
+          message: "Unable to login. Please try again 😟",
+        });
       throw Error(error);
     }
   };
@@ -66,6 +92,10 @@ const AuthProvider = ({ children }) => {
       await signOut(auth);
       navigate("/");
     } catch (error) {
+      Toast({
+        type: "error",
+        message: "We were not able to log you out. Please try again 😟",
+      });
       throw Error(error);
     }
   };

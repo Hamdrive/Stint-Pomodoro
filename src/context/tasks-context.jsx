@@ -1,8 +1,9 @@
 import { createContext, useContext, useEffect, useReducer } from "react";
 import { taskReducer } from "../utils";
-import { doc, getDoc, updateDoc } from "firebase/firestore";
+import { arrayUnion, doc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from "../firebase-config";
 import { useAuth } from "./auth-context";
+import { Toast } from "../components";
 
 const TaskContext = createContext(null);
 
@@ -38,10 +39,40 @@ const TaskProvider = ({ children }) => {
       const getDocSnapshot = await getDoc(docRef);
       if (getDocSnapshot.exists()) {
         await updateDoc(docRef, {
-          tasks: data,
+          tasks: arrayUnion(data),
+        });
+        Toast({
+          type: "success",
+          message: "New task added 🚀",
         });
       }
     } catch (e) {
+      Toast({
+        type: "error",
+        message: "Something went wrong. Please try again 😟",
+      });
+      throw new Error(e);
+    }
+  };
+
+  const updateTask = async (data) => {
+    try {
+      const docRef = await doc(db, "Users", userData?.uid);
+      const getDocSnapshot = await getDoc(docRef);
+      if (getDocSnapshot.exists()) {
+        await updateDoc(docRef, {
+          tasks: data,
+        });
+        Toast({
+          type: "success",
+          message: "Task updated 📝",
+        });
+      }
+    } catch (e) {
+      Toast({
+        type: "error",
+        message: "Something went wrong. Please try again 😟",
+      });
       throw new Error(e);
     }
   };
@@ -54,8 +85,16 @@ const TaskProvider = ({ children }) => {
         await updateDoc(docRef, {
           tasks: data,
         });
+        Toast({
+          type: "success",
+          message: "Task deleted 🧹",
+        });
       }
     } catch (e) {
+      Toast({
+        type: "error",
+        message: "Something went wrong. Please try again 😟",
+      });
       throw new Error(e);
     }
   };
@@ -67,7 +106,14 @@ const TaskProvider = ({ children }) => {
 
   return (
     <TaskContext.Provider
-      value={{ taskDispatch, taskState, getTasks, setTask, deleteTask }}
+      value={{
+        taskDispatch,
+        taskState,
+        getTasks,
+        setTask,
+        updateTask,
+        deleteTask,
+      }}
     >
       {children}
     </TaskContext.Provider>
