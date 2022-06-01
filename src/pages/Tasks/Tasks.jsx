@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Modal } from "../../components";
 import { useAuth } from "../../context/auth-context";
 import { useTasks } from "../../context/tasks-context";
@@ -12,21 +12,17 @@ export function Tasks() {
   const [showModal, setshowModal] = useState(false);
 
   const { theme } = useTheme();
-  const { taskState, setTask } = useTasks();
+  const { taskState } = useTasks();
   const {
     authState: { userData },
   } = useAuth();
+
+  usePageTitle("Tasks | Stint Pomodoro");
 
   // changes modal state visiibility
   const toggleModal = () => {
     setshowModal((prev) => !prev);
   };
-
-  usePageTitle("Tasks | Stint Pomodoro");
-
-  useEffect(() => {
-    taskState.tasks.length > 0 && setTask(taskState.tasks);
-  }, [taskState.tasks]);
 
   return (
     <main>
