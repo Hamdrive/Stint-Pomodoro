@@ -3,13 +3,13 @@ import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBBIMXMWrWCPlzialR25ctSEFIBf7KGgGo",
-  authDomain: "stint-pomodoro.firebaseapp.com",
-  projectId: "stint-pomodoro",
-  storageBucket: "stint-pomodoro.appspot.com",
-  messagingSenderId: "139209721745",
-  appId: "1:139209721745:web:64abe29a1d169cd02cfc30",
-  measurementId: "G-GFMNWSEWHZ",
+  apiKey: process.env.REACT_APP_APIKEY,
+  authDomain: process.env.REACT_APP_AUTHDOMAIN,
+  projectId: process.env.REACT_APP_PROJECTID,
+  storageBucket: process.env.REACT_APP_STORAGEBUCKET,
+  messagingSenderId: process.env.REACT_APP_MESSAGINGSENDERID,
+  appId: process.env.REACT_APP_APPID,
+  measurementId: process.env.REACT_APP_MEASUREMENTID,
 };
 
 const app = initializeApp(firebaseConfig);
