@@ -61,8 +61,9 @@ const TaskProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    getTasks();
-  }, []);
+    !userData && taskDispatch({ type: "CLEAR_TASKS" });
+    userData && getTasks();
+  }, [userData]);
 
   return (
     <TaskContext.Provider

@@ -25,7 +25,7 @@ export function Tasks() {
   usePageTitle("Tasks | Stint Pomodoro");
 
   useEffect(() => {
-    setTask(taskState.tasks);
+    taskState.tasks.length > 0 && setTask(taskState.tasks);
   }, [taskState.tasks]);
 
   return (

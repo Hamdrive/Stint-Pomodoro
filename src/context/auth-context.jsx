@@ -77,13 +77,14 @@ const AuthProvider = ({ children }) => {
         localStorage.setItem("userData", JSON.stringify(user));
         authDispatch({
           type: "LOGIN",
-          payload: { isLoggedIn: true, user },
+          payload: { isLoggedIn: true, userData: user },
         });
       } else {
         localStorage.setItem("loggedIn", false);
+        localStorage.setItem("userData", null);
         authDispatch({
           type: "LOGOUT",
-          payload: { isLoggedIn: false, user: null },
+          payload: { isLoggedIn: false, userData: null },
         });
       }
     });

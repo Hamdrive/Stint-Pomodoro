@@ -26,6 +26,9 @@ export function taskReducer(state, action) {
         tasks: state.tasks.filter((task) => task.id !== payload.id),
       };
 
+    case "CLEAR_TASKS":
+      return { ...state, tasks: [] };
+
     default:
       return state;
   }
