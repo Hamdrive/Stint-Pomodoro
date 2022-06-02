@@ -6,6 +6,7 @@ import { BrowserRouter as Router } from "react-router-dom";
 import { ThemeProvider } from "./context/theme-context";
 import { TaskProvider } from "./context/tasks-context";
 import { AuthProvider } from "./context/auth-context";
+import { ToastContainer } from "react-toastify";
 
 ReactDOM.render(
   <React.StrictMode>
@@ -14,6 +15,7 @@ ReactDOM.render(
         <ThemeProvider>
           <TaskProvider>
             <App />
+            <ToastContainer />
           </TaskProvider>
         </ThemeProvider>
       </AuthProvider>

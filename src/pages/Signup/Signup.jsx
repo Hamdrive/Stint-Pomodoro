@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { InputError } from "../../components";
+import { InputError, Loader } from "../../components";
 import { useAuth } from "../../context/auth-context";
 import { useTheme } from "../../context/theme-context";
 import { usePageTitle } from "../../utils";
@@ -24,7 +24,7 @@ export const Signup = () => {
   const { name, email, password } = inputState;
   const { emailError, passwordError, nameError } = errorState;
 
-  const { registerUser } = useAuth();
+  const { registerUser, loading } = useAuth();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -41,6 +41,7 @@ export const Signup = () => {
         theme ? "background__dark text__dark" : "background__light"
       } py-md`}
     >
+      {loading ? <Loader /> : 
       <div className="window__signup">
         <div className="flex-center">
           <span className="txt-lg txt-bold">SignUp </span>
@@ -139,7 +140,7 @@ export const Signup = () => {
             </span>
           </Link>
         </div>
-      </div>
+      </div>}
     </section>
   );
 };

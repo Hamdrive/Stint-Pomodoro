@@ -5,26 +5,12 @@ export function taskReducer(state, action) {
     case "ADD_TASK":
       return {
         ...state,
-        tasks: [
-          ...state.tasks,
-          {
-            id: payload.id,
-            title: payload.title,
-            desc: payload.desc,
-            focusDuration: payload.focusDuration,
-            breakDuration: payload.breakDuration,
-          },
-        ],
+        tasks: [...state.tasks, payload],
       };
     case "FETCH_TASKS":
     case "UPDATE_TASK":
-      return { ...state, tasks: [...payload] };
-
     case "DELETE_TASK":
-      return {
-        ...state,
-        tasks: state.tasks.filter((task) => task.id !== payload.id),
-      };
+      return { ...state, tasks: payload };
 
     case "CLEAR_TASKS":
       return { ...state, tasks: [] };

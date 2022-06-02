@@ -1,4 +1,4 @@
-import { createContext, useContext, useReducer, useEffect } from "react";
+import { createContext, useContext, useReducer, useEffect, useState } from "react";
 import {
   browserLocalPersistence,
   createUserWithEmailAndPassword,
@@ -11,6 +11,7 @@ import {
 import { auth, db } from "../firebase-config";
 import { doc, setDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
+import { Toast } from "../components";
 
 const AuthContext = createContext();
 const useAuth = () => useContext(AuthContext);
@@ -32,11 +33,13 @@ const authReducer = (state, { type, payload }) => {
 
 const AuthProvider = ({ children }) => {
   const [authState, authDispatch] = useReducer(authReducer, initialState);
+  const [loading, setLoading] = useState(false)
 
   const navigate = useNavigate();
 
   const registerUser = async (name, email, password) => {
     try {
+      setLoading(true)
       await setPersistence(auth, browserLocalPersistence);
       const res = await createUserWithEmailAndPassword(auth, email, password);
       await updateProfile(res?.user, {
@@ -48,25 +51,62 @@ const AuthProvider = ({ children }) => {
       });
       localStorage.setItem("userData", JSON.stringify(res?.user));
     } catch (error) {
+      if (error.code === "auth/email-already-in-use")
+        Toast({
+          type: "error",
+          message: "Uh Oh! Looks like that user already exists 😟",
+        });
+      else
+        Toast({
+          type: "error",
+          message: "Something went wrong. Please try again 😟",
+        });
       throw Error(error);
+    } finally {
+      setLoading(false)
     }
   };
 
   const signInUser = async (email, password) => {
     try {
+      setLoading(true)
       await setPersistence(auth, browserLocalPersistence);
       await signInWithEmailAndPassword(auth, email, password);
     } catch (error) {
+      if (error.code === "auth/user-not-found")
+        Toast({
+          type: "error",
+          message: "That email does not exist to us. Try again 😟",
+        });
+      else if (error.code === "auth/wrong-password")
+        Toast({
+          type: "error",
+          message: "Invalid password. Please try again 😟",
+        });
+      else
+        Toast({
+          type: "error",
+          message: "Unable to login. Please try again 😟",
+        });
       throw Error(error);
+    } finally {
+      setLoading(false)
     }
   };
 
   const signOutUser = async () => {
     try {
+      setLoading(true)
       await signOut(auth);
       navigate("/");
     } catch (error) {
+      Toast({
+        type: "error",
+        message: "We were not able to log you out. Please try again 😟",
+      });
       throw Error(error);
+    } finally {
+      setLoading(false)
     }
   };
 
@@ -100,6 +140,7 @@ const AuthProvider = ({ children }) => {
         registerUser,
         signInUser,
         signOutUser,
+        loading
       }}
     >
       {children}

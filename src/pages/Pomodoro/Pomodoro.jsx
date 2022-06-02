@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { buildStyles, CircularProgressbar } from "react-circular-progressbar";
-import { PrimaryGhostBtn, SecondaryBtn } from "../../components";
+import { PrimaryGhostBtn, SecondaryBtn, Toast } from "../../components";
 import styles from "./Pomodoro.module.css";
 import "react-circular-progressbar/dist/styles.css";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -20,7 +20,7 @@ export function Pomodoro() {
   // set initial state
   const [pomodoroMode, setpomodoroMode] = useState("focus");
   const [seconds, setSeconds] = useState(0);
-  const [disabled, setDisabled] = useState("pause")
+  const [disabled, setDisabled] = useState("pause");
 
   //set refs using useRef hook
   const percentageRef = useRef(100);
@@ -57,18 +57,47 @@ export function Pomodoro() {
 
     setSeconds(newSeconds);
     secondsRef.current = newSeconds;
+
+    Toast({
+      type: "info",
+      message:
+        newMode === "focus"
+          ? "Hope you had a splendid break! Now let's get focused again 👨‍💻  "
+          : "Session complete! Go have a break, you deserve it ☕",
+    });
   };
 
-  // handle pause/restart count
-  const handleStopInterval = () => {
+  // handle pause count
+  const handleStopInterval = (click) => {
     clearInterval(intervalRef.current);
-    setDisabled("pause")
+    setDisabled("pause");
+    click !== "reset" &&
+      Toast({
+        type: "info",
+        message: "Pomodoro session has been paused ⏸",
+      });
+  };
+
+  // handle restart count
+  const handleRestartInterval = () => {
+    handleStopInterval("reset");
+    secondsRef.current = focusMinutes * 60;
+    setSeconds(focusMinutes * 60);
+    pomodoroModeRef.current = "focus";
+    Toast({
+      type: "info",
+      message: "Pomodoro session has been reset 🔁",
+    });
   };
 
   // handle start count
   const handleStartInterval = () => {
     clearInterval(intervalRef.current);
-    setDisabled("start")
+    setDisabled("start");
+    Toast({
+      type: "info",
+      message: "Pomodoro session has started 👨‍💻",
+    });
 
     intervalRef.current = setInterval(() => {
       if (secondsRef.current === 0) return switchPomodoroMode();
@@ -149,12 +178,7 @@ export function Pomodoro() {
                   Pause
                 </PrimaryGhostBtn>
                 <SecondaryBtn
-                  onClick={() => {
-                    handleStopInterval();
-                    secondsRef.current = focusMinutes * 60;
-                    setSeconds(focusMinutes * 60);
-                    pomodoroModeRef.current = "focus";
-                  }}
+                  onClick={() => handleRestartInterval()}
                   btnStyles={"span-2 word-break"}
                 >
                   <i className="fas fa-redo"></i>
