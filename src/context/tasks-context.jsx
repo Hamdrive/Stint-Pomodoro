@@ -1,4 +1,10 @@
-import { createContext, useContext, useEffect, useReducer, useState } from "react";
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useReducer,
+  useState,
+} from "react";
 import { taskReducer } from "../utils";
 import { arrayUnion, doc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from "../firebase-config";
@@ -13,7 +19,7 @@ const TaskProvider = ({ children }) => {
   const [taskState, taskDispatch] = useReducer(taskReducer, {
     tasks: [],
   });
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
 
   const {
     authState: { userData },
@@ -21,7 +27,7 @@ const TaskProvider = ({ children }) => {
 
   const getTasks = async () => {
     try {
-      setLoading(true)
+      setLoading(true);
       const docRef = await doc(db, "Users", userData?.uid);
       const getDocSnapshot = await getDoc(docRef);
       if (getDocSnapshot.exists()) {
@@ -33,13 +39,13 @@ const TaskProvider = ({ children }) => {
     } catch (e) {
       throw new Error(e);
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
   };
 
   const setTask = async (data) => {
     try {
-      setLoading(true)
+      setLoading(true);
       const docRef = await doc(db, "Users", userData?.uid);
       const getDocSnapshot = await getDoc(docRef);
       if (getDocSnapshot.exists()) {
@@ -58,13 +64,13 @@ const TaskProvider = ({ children }) => {
       });
       throw new Error(e);
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
   };
 
   const updateTask = async (data) => {
     try {
-      setLoading(true)
+      setLoading(true);
       const docRef = await doc(db, "Users", userData?.uid);
       const getDocSnapshot = await getDoc(docRef);
       if (getDocSnapshot.exists()) {
@@ -83,13 +89,13 @@ const TaskProvider = ({ children }) => {
       });
       throw new Error(e);
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
   };
 
   const deleteTask = async (data) => {
     try {
-      setLoading(true)
+      setLoading(true);
       const docRef = await doc(db, "Users", userData?.uid);
       const getDocSnapshot = await getDoc(docRef);
       if (getDocSnapshot.exists()) {
@@ -108,7 +114,7 @@ const TaskProvider = ({ children }) => {
       });
       throw new Error(e);
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
   };
 
@@ -126,7 +132,7 @@ const TaskProvider = ({ children }) => {
         setTask,
         updateTask,
         deleteTask,
-        loading
+        loading,
       }}
     >
       {children}
